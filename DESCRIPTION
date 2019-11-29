@@ -1,0 +1,37 @@
+Package: hfmisc
+Title: Miscellaneous functions created mainly for use in RiksSvikt (SwedeHF)
+Version: 0.0.1
+Authors@R: 
+    person(
+        given = "Lina", 
+        family = "Benson", 
+        email = "lina.benson@ki.se", 
+        role = c("aut", "cre"))
+Description: 
+    Collection of functions used for data handling and statistical 
+    analyses mainly in RiksSvikt.
+Depends: 
+    R (>= 3.5)
+Imports: 
+    purrr, 
+    dplyr, 
+    tidyr,
+    lubridate,
+    stringi,
+    rlang,
+    stringr,
+    lifecycle 
+Suggests:
+    scales,
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+License: GPL-3
+URL: https://github.com/linabe/hfmisc, 
+    https://linabe.github.io/hfmisc
+BugReports: https://github.com/hfmisc/issues
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1

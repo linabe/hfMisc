@@ -1,0 +1,63 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# hfmisc
+
+## Overview 
+
+
+Miscellaneous functions created mainly for use in RiksSvikt (SwedeHF)
+
+<!-- badges: start -->
+
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
+<!-- badges: end -->
+
+
+## Installation 
+
+
+Install R package `devtools` from CRAN:
+
+```{r, eval=FALSE}
+install.packages("devtools")
+```
+
+Install R package `hfmisc`: 
+
+```{r, eval=FALSE}
+devtools::devtools::install_github("hfmisc")
+```
+
+Load package: 
+
+```{r, eval=FALSE}
+library(hfmisc)
+```
+
+Get overview of functions:
+
+```{r, eval=FALSE}
+help(package = "hfmisc")
+```
+
+
+## Getting help
+
+
+Lina Benson, lina.benson@ki.se
