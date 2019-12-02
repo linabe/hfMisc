@@ -11,7 +11,6 @@
 #'
 #' @examples
 #' sos_data <- clean_data(sos_data)
-#'
 #' @import dplyr
 #' @export
 

@@ -1,11 +1,3 @@
-library(purrr)
-library(dplyr)
-library(lubridate)
-library(stringi)
-library(rlang)
-library(testthat)
-library(hfmisc)
-
 
 sos_data_test <- prep_sosdata(sos_data)
 
@@ -165,14 +157,14 @@ expect_warning(
 
 rs_data_test <- do_sosvar(
   sosdata = sos_data_test,
-cohortdata = rs_data,
-patid = id,
-indexdate = indexdtm,
-sosdate = sosdtm,
-type = "mh",
-name = "cv1y",
-diakod = " I",
-stoptime = -365.25
+  cohortdata = rs_data,
+  patid = id,
+  indexdate = indexdtm,
+  sosdate = sosdtm,
+  type = "mh",
+  name = "cv1y",
+  diakod = " I",
+  stoptime = -365.25
 )
 
 

@@ -38,7 +38,6 @@
 #' )
 #' }
 #' sos_data <- prep_sosdata(sos_data)
-#'
 #' @export
 
 prep_sosdata <- function(sosdata,

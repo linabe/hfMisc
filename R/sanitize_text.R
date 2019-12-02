@@ -11,7 +11,6 @@
 #' @examples
 #' var_names <- c(">50", "#Test", "Test1 & Test2")
 #' var_names <- sanitize_text(var_names)
-#'
 #' @export
 
 sanitize_text <- function(str) {

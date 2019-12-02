@@ -41,7 +41,7 @@ install.packages("devtools")
 Install R package `hfmisc`: 
 
 ```{r, eval=FALSE}
-devtools::devtools::install_github("hfmisc")
+devtools::install_github("hfmisc")
 ```
 
 Load package: 

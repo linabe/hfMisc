@@ -17,11 +17,6 @@
 *.utf8.md
 *.knit.md
 
-# Output files
-*.html
-*.pdf
-
-
 # Internal
 inst/internal
 

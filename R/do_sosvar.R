@@ -50,9 +50,10 @@
 #' @param evar Column where ekod is found. All codes should start
 #'   with blank space " ". Default is ekod_all.
 #' @param meta_reg Optional argument specifying registries used. Printed in
-#' metadatatable. Default is "Patientregistret, sluten-, oppenvard- och dagkirurgi".
+#'   metadatatable. Default is
+#'   "Patientregistret, sluten-, oppenvard- och dagkirurgi".
 #' @param meta_pos Optional argument specifying positions used to search for
-#' outcomes/comorbidities. Printed in metadatatable.
+#'   outcomes/comorbidities. Printed in metadatatable.
 #' @param warnings Should warnings be printed. Default is FALSE.
 #'
 #' @seealso \code{\link{prep_sosdata}}
@@ -99,7 +100,8 @@ do_sosvar <- function(sosdata,
                       diavar = DIA_all,
                       opvar = OP_all,
                       evar = ekod_all,
-                      meta_reg = "Patientregistret, sluten-, oppenvard- och dagkirurgi",
+                      meta_reg =
+                        "Patientregistret, sluten-, oppenvard- och dagkirurgi",
                       meta_pos,
                       warnings = FALSE) {
   patid <- enquo(patid)
@@ -178,8 +180,9 @@ do_sosvar <- function(sosdata,
     if (!any(duplicated(cohortdata %>% select(!!patid, !!indexdate)))) {
       groupbyvars <- c(as_name(patid), as_name(indexdate))
       if (warnings) {
-        warning(paste0(as_name(patid), " is not unique in cohortdata. Output data
-    will be for unique ", as_name(patid), " and ", as_name(indexdate), "."))
+        warning(paste0(as_name(patid),
+        " is not unique in cohortdata. Output data will be for unique ",
+        as_name(patid), " and ", as_name(indexdate), "."))
       }
     } else {
       if (!missing(add_unique)) {
@@ -187,9 +190,8 @@ do_sosvar <- function(sosdata,
       } else {
         stop(paste0(
           as_name(patid), " and ", as_name(indexdate),
-          " are not unique in cohortdata. Supply additional unique column in argument
-    add_unique (for example
-    postnr)."
+          " are not unique in cohortdata. Supply additional
+          unique column in argument add_unique (for example postnr)."
         ))
       }
     }
@@ -256,7 +258,8 @@ do_sosvar <- function(sosdata,
       mutate(
         !!name2 := tidyr::replace_na(!!sym(name2), 0),
         !!name2 := ifelse(!is.na(!!sosdate) & !!sosdate > !!censdate, 0,
-                          !!sym(name2)),
+          !!sym(name2)
+        ),
         !!timename2 := as.numeric(pmin(!!sosdate, !!censdate, na.rm = TRUE)
         - !!indexdate)
       ) %>%
