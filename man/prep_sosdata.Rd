@@ -2,7 +2,7 @@
 % Please edit documentation in R/prep_sosdata.R
 \name{prep_sosdata}
 \alias{prep_sosdata}
-\title{Prepares SoS data for input into function do_sosvar}
+\title{Prepares SoS data for input into function create_sosvar}
 \usage{
 prep_sosdata(sosdata, registry = "patreg", utdatum = TRUE,
   remove = TRUE, impute = TRUE)
