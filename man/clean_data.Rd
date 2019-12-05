@@ -19,5 +19,4 @@ Removes spaces and special characters from character column(s).
 }
 \examples{
 sos_data <- clean_data(sos_data)
-
 }

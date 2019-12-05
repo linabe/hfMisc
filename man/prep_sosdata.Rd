@@ -49,8 +49,7 @@ sos_data <- bind_rows(
 )
 }
 sos_data <- prep_sosdata(sos_data)
-
 }
 \seealso{
-\code{\link{do_sosvar}}
+\code{\link{create_sosvar}}
 }

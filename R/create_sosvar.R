@@ -67,7 +67,7 @@
 #'
 #' sos_data <- prep_sosdata(sos_data)
 #'
-#' rs_data_test <- do_sosvar(
+#' rs_data_test <- create_sosvar(
 #'   sosdata = sos_data,
 #'   cohortdata = rs_data,
 #'   patid = id,
@@ -83,27 +83,27 @@
 #'
 #' @export
 
-do_sosvar <- function(sosdata,
-                      cohortdata,
-                      patid = lopnr,
-                      indexdate = indexdtm,
-                      add_unique,
-                      sosdate = sosdtm,
-                      censdate,
-                      type,
-                      name,
-                      starttime = ifelse(type == "out", 1, 0),
-                      stoptime,
-                      diakod,
-                      opkod,
-                      ekod,
-                      diavar = DIA_all,
-                      opvar = OP_all,
-                      evar = ekod_all,
-                      meta_reg =
-                        "Patientregistret, sluten-, oppenvard- och dagkirurgi",
-                      meta_pos,
-                      warnings = FALSE) {
+create_sosvar <- function(sosdata,
+                          cohortdata,
+                          patid = lopnr,
+                          indexdate = indexdtm,
+                          add_unique,
+                          sosdate = sosdtm,
+                          censdate,
+                          type,
+                          name,
+                          starttime = ifelse(type == "out", 1, 0),
+                          stoptime,
+                          diakod,
+                          opkod,
+                          ekod,
+                          diavar = DIA_all,
+                          opvar = OP_all,
+                          evar = ekod_all,
+                          meta_reg =
+                            "Patientregistret, sluten-, oppenvard- och dagkirurgi",
+                          meta_pos,
+                          warnings = FALSE) {
   patid <- enquo(patid)
   indexdate <- enquo(indexdate)
   sosdate <- enquo(sosdate)
@@ -180,9 +180,11 @@ do_sosvar <- function(sosdata,
     if (!any(duplicated(cohortdata %>% select(!!patid, !!indexdate)))) {
       groupbyvars <- c(as_name(patid), as_name(indexdate))
       if (warnings) {
-        warning(paste0(as_name(patid),
-        " is not unique in cohortdata. Output data will be for unique ",
-        as_name(patid), " and ", as_name(indexdate), "."))
+        warning(paste0(
+          as_name(patid),
+          " is not unique in cohortdata. Output data will be for unique ",
+          as_name(patid), " and ", as_name(indexdate), "."
+        ))
       }
     } else {
       if (!missing(add_unique)) {

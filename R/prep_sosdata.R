@@ -24,7 +24,7 @@
 #' @param impute To be implemented. kom ihåg att kolla om finns värden i INDATUMA
 #'   (text) men inte i INDATUM (numerisk). i så fall imputera.
 #'
-#' @seealso \code{\link{do_sosvar}}
+#' @seealso \code{\link{create_sosvar}}
 #'
 #' @return sosdataset with combined DIA, OP, ekod variables and space
 #'   in front of HDIA and sosdtm.
