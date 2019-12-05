@@ -116,26 +116,26 @@ create_sosvar <- function(sosdata,
 
   # check input arguments ok
   if (!has_name(sosdata, as_name(patid))) {
-    stop(paste0(patid, " does not exist in sosdata"))
+    stop(paste0(as_label(patid), " does not exist in sosdata"))
   }
 
   if (!has_name(cohortdata, as_name(patid))) {
-    stop(paste0(patid, " does not exist in cohortdata"))
+    stop(paste0(as_label(patid), " does not exist in cohortdata"))
   }
 
   if (!has_name(cohortdata, as_name(indexdate))) {
-    stop(paste0(indexdate, " does not exist in cohortdata"))
+    stop(paste0(as_label(indexdate), " does not exist in cohortdata"))
   }
 
   if (!has_name(sosdata, as_name(sosdate))) {
-    stop(paste0(sosdate, " does not exist in sosdata"))
+    stop(paste0(as_label(sosdate), " does not exist in sosdata"))
   }
 
   if (any(has_name(sosdata, names(cohortdata)[!names(cohortdata) == "id"]))) {
     if (warnings) {
       warning(paste0(
         "cohortdata and sosdata have overlapping columns. Only ",
-        patid, " should be the same. This might cause unexpected results."
+        as_label(patid), " should be the same. This might cause unexpected results."
       ))
     }
   }
@@ -158,8 +158,7 @@ create_sosvar <- function(sosdata,
   if (any(has_name(cohortdata, name2))) {
     if (warnings) {
       warning(paste0(
-        name2, " already exists in ", rlang::as_name(quo(cohortdata)),
-        ". This might cause unexpected results."
+        name2, " already exists in cohortdata. This might cause unexpected results."
       ))
     }
     cohortdata <- cohortdata %>%
