@@ -2,7 +2,7 @@
 sos_data_test <- prep_sosdata(sos_data)
 
 expect_error(
-  do_sosvar(
+  create_sosvar(
     sosdata = sos_data_test,
     cohortdata = rs_data,
     patid = lopnr
@@ -12,7 +12,7 @@ expect_error(
 
 
 expect_error(
-  do_sosvar(
+  create_sosvar(
     sosdata = sos_data_test %>% rename(lopnr = id),
     cohortdata = rs_data,
     patid = lopnr
@@ -22,7 +22,7 @@ expect_error(
 
 
 expect_error(
-  do_sosvar(
+  create_sosvar(
     sosdata = sos_data_test,
     cohortdata = rs_data,
     patid = id,
@@ -33,7 +33,7 @@ expect_error(
 
 
 expect_error(
-  do_sosvar(
+  create_sosvar(
     sosdata = sos_data_test,
     cohortdata = rs_data,
     patid = id,
@@ -45,7 +45,7 @@ expect_error(
 
 
 expect_warning(
-  do_sosvar(
+  create_sosvar(
     sosdata = sos_data_test %>% mutate(deathdtm = 1),
     cohortdata = rs_data,
     patid = id,
@@ -59,7 +59,7 @@ expect_warning(
   "cohortdata and sosdata have overlapping columns. Only id should be the same. This might cause unexpected results."
 )
 
-expect_error(do_sosvar(
+expect_error(create_sosvar(
   sosdata = sos_data_test,
   cohortdata = rs_data,
   patid = id,
@@ -72,7 +72,7 @@ expect_error(do_sosvar(
 
 
 expect_error(
-  do_sosvar(
+  create_sosvar(
     sosdata = sos_data_test,
     cohortdata = rs_data,
     patid = id,
@@ -86,7 +86,7 @@ expect_error(
 )
 
 expect_error(
-  do_sosvar(
+  create_sosvar(
     sosdata = sos_data_test,
     cohortdata = rs_data,
     patid = id,
@@ -101,7 +101,7 @@ expect_error(
 
 
 expect_warning(
-  test_data <- do_sosvar(
+  test_data <- create_sosvar(
     sosdata = sos_data_test,
     cohortdata = rs_data,
     patid = id,
@@ -113,8 +113,7 @@ expect_warning(
     censdate = deathdtm,
     warnings = TRUE
   ),
-  "id is not unique in cohortdata. Output data
-    will be for unique id and indexdtm."
+  "id is not unique in cohortdata. Output data will be for unique id and indexdtm."
 )
 
 test_data <- test_data %>%
@@ -123,7 +122,7 @@ test_data <- test_data %>%
   ungroup()
 
 expect_warning(
-  do_sosvar(
+  create_sosvar(
     sosdata = sos_data_test,
     cohortdata = test_data,
     patid = id,
@@ -140,7 +139,7 @@ expect_warning(
 
 
 expect_warning(
-  do_sosvar(
+  create_sosvar(
     sosdata = sos_data_test,
     cohortdata = rs_data,
     patid = id,
@@ -155,7 +154,7 @@ expect_warning(
   "stoptime for comorbidity is not negative."
 )
 
-rs_data_test <- do_sosvar(
+rs_data_test <- create_sosvar(
   sosdata = sos_data_test,
   cohortdata = rs_data,
   patid = id,
@@ -168,7 +167,7 @@ rs_data_test <- do_sosvar(
 )
 
 
-rs_data_test <- do_sosvar(
+rs_data_test <- create_sosvar(
   sosdata = sos_data_test,
   cohortdata = rs_data_test,
   patid = id,
@@ -182,7 +181,7 @@ rs_data_test <- do_sosvar(
 )
 
 
-rs_data_test <- do_sosvar(
+rs_data_test <- create_sosvar(
   sosdata = sos_data_test,
   cohortdata = rs_data_test,
   patid = id,

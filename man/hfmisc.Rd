@@ -13,7 +13,7 @@ Useful links:
 \itemize{
   \item \url{https://github.com/linabe/hfmisc}
   \item \url{https://linabe.github.io/hfmisc}
-  \item Report bugs at \url{https://github.com/hfmisc/issues}
+  \item Report bugs at \url{https://github.com/linabe/hfmisc/issues}
 }
 
 }
