@@ -31,34 +31,34 @@ in sosdata. Default is sosdtm.}
 \item{censdate}{Only for type = "out". Outcomes are
 up until this time point (usually date of death or censoring).}
 
-\item{type}{Possible values are "out" and "mh".
+\item{type}{Possible values are "out" and "com".
 Is the resulting variable an outcome (and time to is calculated)
-or medical history (comorbidity)?}
+or comorbidity?}
 
 \item{name}{Name of resulting variable
-(prefix sos_out_ is added to outcome and sos_mh_ to medical history).}
+(prefix sos_out_ is added to outcome and sos_com_ to comorbidity).}
 
 \item{starttime}{If type = "out" amount of time (in days) AFTER indexdate
-to start counted as outcome. If type = "mh" amount of time (in days)
+to start counted as outcome. If type = "com" amount of time (in days)
 PRIOR to indexdate to . Indexdate = 0, all values prior to
-indexdate are negative. Default is 1 ("out") and 0 ("mh").}
+indexdate are negative. Default is 1 ("out") and 0 ("com").}
 
 \item{stoptime}{If type = "out" amount of time (in days) AFTER indexdate to
-be counted. If type = "mh" amount of time (in days) PRIOR to indexdate
+be counted. If type = "com" amount of time (in days) PRIOR to indexdate
 to Indexdate = 0, all values prior to indexdate are negative.
 Default is any time prior to starttime is considered a comorbidity
 and any time after starttime is considered an outcome.}
 
 \item{diakod}{String of icd codes as a regular expression
-defining the outcome/medical history. Should start
+defining the outcome/comorbidity. Should start
 with blank space " ".}
 
 \item{opkod}{String of procedure codes as a regular expression
-defining the outcome/medical history. Should start
+defining the outcome/comorbidity. Should start
 with blank space " ".}
 
 \item{ekod}{String of e codes as a regular expression defining
-the outcome/medical history. Should start
+the outcome/comorbidity. Should start
 with blank space " ".}
 
 \item{diavar}{Column where diakod is found. All codes should start
@@ -80,7 +80,7 @@ outcomes/comorbidities. Printed in metadatatable.}
 \item{warnings}{Should warnings be printed. Default is FALSE.}
 }
 \value{
-dataset with column containing medical history/outcome.
+dataset with column containing comorbidity/outcome.
 Also dataset metaout that writes directly to global enviroment
 with information on constructed variables.
 }
@@ -101,7 +101,7 @@ rs_data_test <- create_sosvar(
   patid = id,
   indexdate = indexdtm,
   sosdate = sosdtm,
-  type = "mh",
+  type = "com",
   name = "cv1y",
   diakod = " I",
   stoptime = -365.25

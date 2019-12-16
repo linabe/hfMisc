@@ -20,28 +20,28 @@
 #'   in sosdata. Default is sosdtm.
 #' @param censdate Only for type = "out". Outcomes are
 #'   up until this time point (usually date of death or censoring).
-#' @param type Possible values are "out" and "mh".
+#' @param type Possible values are "out" and "com".
 #'   Is the resulting variable an outcome (and time to is calculated)
-#'   or medical history (comorbidity)?
+#'   or comorbidity?
 #' @param name Name of resulting variable
-#'   (prefix sos_out_ is added to outcome and sos_mh_ to medical history).
+#'   (prefix sos_out_ is added to outcome and sos_com_ to comorbidity).
 #' @param starttime If type = "out" amount of time (in days) AFTER indexdate
-#'   to start counted as outcome. If type = "mh" amount of time (in days)
+#'   to start counted as outcome. If type = "com" amount of time (in days)
 #'   PRIOR to indexdate to . Indexdate = 0, all values prior to
-#'   indexdate are negative. Default is 1 ("out") and 0 ("mh").
+#'   indexdate are negative. Default is 1 ("out") and 0 ("com").
 #' @param stoptime If type = "out" amount of time (in days) AFTER indexdate to
-#'   be counted. If type = "mh" amount of time (in days) PRIOR to indexdate
+#'   be counted. If type = "com" amount of time (in days) PRIOR to indexdate
 #'   to Indexdate = 0, all values prior to indexdate are negative.
 #'   Default is any time prior to starttime is considered a comorbidity
 #'   and any time after starttime is considered an outcome.
 #' @param diakod String of icd codes as a regular expression
-#'   defining the outcome/medical history. Should start
+#'   defining the outcome/comorbidity. Should start
 #'   with blank space " ".
 #' @param opkod String of procedure codes as a regular expression
-#'   defining the outcome/medical history. Should start
+#'   defining the outcome/comorbidity. Should start
 #'   with blank space " ".
 #' @param ekod String of e codes as a regular expression defining
-#'   the outcome/medical history. Should start
+#'   the outcome/comorbidity. Should start
 #'   with blank space " ".
 #' @param diavar Column where diakod is found. All codes should start
 #'   with blank space " ". Default is DIA_all.
@@ -58,7 +58,7 @@
 #'
 #' @seealso \code{\link{prep_sosdata}}
 #'
-#' @return dataset with column containing medical history/outcome.
+#' @return dataset with column containing comorbidity/outcome.
 #'   Also dataset metaout that writes directly to global enviroment
 #'   with information on constructed variables.
 #'
@@ -73,7 +73,7 @@
 #'   patid = id,
 #'   indexdate = indexdtm,
 #'   sosdate = sosdtm,
-#'   type = "mh",
+#'   type = "com",
 #'   name = "cv1y",
 #'   diakod = " I",
 #'   stoptime = -365.25
@@ -140,8 +140,8 @@ create_sosvar <- function(sosdata,
     }
   }
 
-  if (!type %in% c("out", "mh")) {
-    stop("type should be either 'out' (outcome) or 'mh' (comorbidity).")
+  if (!type %in% c("out", "com")) {
+    stop("type should be either 'out' (outcome) or 'com' (comorbidity).")
   }
 
   if (type == "out" & missing(censdate)) {
@@ -165,7 +165,7 @@ create_sosvar <- function(sosdata,
       select(-!!enquo(name2))
   }
 
-  if (type == "mh" & !missing(stoptime)) {
+  if (type == "com" & !missing(stoptime)) {
     if (stoptime > 0) {
       if (warnings) {
         warning("stoptime for comorbidity is not negative.")
@@ -209,11 +209,11 @@ create_sosvar <- function(sosdata,
 
 
   if (type == "out") tmp_data <- tmp_data %>% dplyr::filter(difft >= starttime)
-  if (type == "mh") tmp_data <- tmp_data %>% dplyr::filter(difft <= starttime)
+  if (type == "com") tmp_data <- tmp_data %>% dplyr::filter(difft <= starttime)
 
   if (!missing(stoptime)) {
     if (type == "out") tmp_data <- tmp_data %>% dplyr::filter(difft <= stoptime)
-    if (type == "mh") tmp_data <- tmp_data %>% dplyr::filter(difft >= stoptime)
+    if (type == "com") tmp_data <- tmp_data %>% dplyr::filter(difft >= stoptime)
   }
 
   if (!missing(diakod)) {
@@ -241,7 +241,7 @@ create_sosvar <- function(sosdata,
     slice(1) %>%
     ungroup()
 
-  if (type == "mh") {
+  if (type == "com") {
     out_data <- left_join(
       cohortdata,
       tmp_data %>% dplyr::select(!!!syms(groupbyvars), !!name2),

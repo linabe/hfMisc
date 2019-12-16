@@ -51,7 +51,7 @@ expect_warning(
     patid = id,
     indexdate = indexdtm,
     sosdate = sosdtm,
-    type = "mh",
+    type = "com",
     diakod = " I",
     name = "cv",
     warnings = TRUE
@@ -145,7 +145,7 @@ expect_warning(
     patid = id,
     indexdate = indexdtm,
     sosdate = sosdtm,
-    type = "mh",
+    type = "com",
     name = "cv",
     diakod = " I",
     stoptime = 365.25,
@@ -160,7 +160,7 @@ rs_data_test <- create_sosvar(
   patid = id,
   indexdate = indexdtm,
   sosdate = sosdtm,
-  type = "mh",
+  type = "com",
   name = "cv1y",
   diakod = " I",
   stoptime = -365.25
@@ -195,7 +195,7 @@ rs_data_test <- create_sosvar(
   censdate = deathdtm
 )
 
-expect_that(sum(rs_data_test$sos_mh_cv1y == 1), equals(222))
+expect_that(sum(rs_data_test$sos_com_cv1y == 1), equals(222))
 
 expect_that(sum(rs_data_test$sos_out_cv == 1), equals(179))
 
