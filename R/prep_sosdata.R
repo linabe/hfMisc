@@ -16,7 +16,7 @@
 #'   Takes values patreg (National patient registry) or dors
 #'   (Cause of death registry). Default is National patient registry.
 #' @param utdatum Should the sosdtm (usually to be used in comparison with indexdate)
-#'   be date of discharge for hospitalisation? Default is TRUE.
+#'   be date of discharge for hospitalisation? Default is FALSE.
 #'   Else date of admission is used.
 #' @param remove Should the individual DIA (except HDIA), OP, ekod variables
 #'   be removed after constructing combined variable (to save space)?
@@ -42,7 +42,7 @@
 
 prep_sosdata <- function(sosdata,
                          registry = "patreg",
-                         utdatum = TRUE,
+                         utdatum = FALSE,
                          remove = TRUE,
                          impute = TRUE) {
   if (!registry %in% c("patreg", "dors")) stop("registry is not patreg or dors")
