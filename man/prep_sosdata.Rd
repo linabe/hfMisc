@@ -4,7 +4,7 @@
 \alias{prep_sosdata}
 \title{Prepares SoS data for input into function create_sosvar}
 \usage{
-prep_sosdata(sosdata, registry = "patreg", utdatum = TRUE,
+prep_sosdata(sosdata, registry = "patreg", utdatum = FALSE,
   remove = TRUE, impute = TRUE)
 }
 \arguments{
@@ -16,7 +16,7 @@ Takes values patreg (National patient registry) or dors
 (Cause of death registry). Default is National patient registry.}
 
 \item{utdatum}{Should the sosdtm (usually to be used in comparison with indexdate)
-be date of discharge for hospitalisation? Default is TRUE.
+be date of discharge for hospitalisation? Default is FALSE.
 Else date of admission is used.}
 
 \item{remove}{Should the individual DIA (except HDIA), OP, ekod variables
