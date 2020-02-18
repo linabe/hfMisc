@@ -258,7 +258,10 @@ create_sosvar <- function(sosdata,
     ) %>%
       mutate(
         !!name2 := tidyr::replace_na(!!sym(name2), 0),
-        !!name2 := ifelse(!is.na(!!sosdate) & !!sosdate > !!censdate, 0,
+        !!name2 := ifelse(!is.na(!!sosdate) & !!sosdate - 10 > !!censdate, 0,
+                          # allow sosdate to be more than 10 days after censdate
+                          # (to ensure that pats that have date of discharge AFTER
+                          # date of death are still counted as an event)
           !!sym(name2)
         ),
         !!timename2 := as.numeric(pmin(!!sosdate, !!censdate, na.rm = TRUE)
