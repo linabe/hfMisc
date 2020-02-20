@@ -15,6 +15,6 @@ rs_data
 }
 \description{
 rs_data aims to mimic data from SwedeHF (RiksSvikt),
-used in the examples given in functions create_sosdata and create_sosvar.
+used in the examples given in functions prep_sosdata, create_sosvar and create_deathvar.
 }
 \keyword{datasets}

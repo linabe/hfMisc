@@ -1,5 +1,6 @@
 library(lubridate)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 
 set.seed(734895789)
 
@@ -69,7 +70,25 @@ sos_data <- data.frame(
   mutate(AR = year(UTDATUM)) %>%
   mutate_if(is.factor, as.character) %>%
   arrange(id, UTDATUM) %>%
-  select(id, INDATUM, UTDATUM, HDIA, DIA01, OP01, OP02,
-         ekod1, ekod2, UTDATUM, AR)
+  select(
+    id, INDATUM, UTDATUM, HDIA, DIA01, OP01, OP02,
+    ekod1, ekod2, UTDATUM, AR
+  )
 
-save(rs_data, sos_data, file = "./data/data.rda")
+
+# Create deathdata --------------------------------------------------------
+
+dors_data <- rs_data %>%
+  rename(DODSDAT = deathdtm) %>%
+  filter(DODSDAT != ymd("2015-12-31")) %>%
+  select(id, DODSDAT) %>%
+  group_by(id) %>%
+  slice(1) %>%
+  ungroup() %>%
+  sample_n(size = 100) %>%
+  mutate(ULORSAK = sample(c("I50", "F45", "R34", "I45", "I66", "I"), 100,
+    replace = TRUE
+  )) %>%
+  arrange(id)
+
+save(rs_data, sos_data, dors_data, file = "./data/data.rda")

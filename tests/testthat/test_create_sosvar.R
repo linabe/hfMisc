@@ -1,5 +1,5 @@
 
-sos_data_test <- prep_sosdata(sos_data)
+sos_data_test <- prep_sosdata(sos_data, utdatum = TRUE)
 
 expect_error(
   create_sosvar(
@@ -163,7 +163,8 @@ rs_data_test <- create_sosvar(
   type = "com",
   name = "cv1y",
   diakod = " I",
-  stoptime = -365.25
+  stoptime = -365.25,
+  warning = FALSE
 )
 
 
@@ -177,7 +178,8 @@ rs_data_test <- create_sosvar(
   name = "cv",
   diakod = " I",
   stoptime = 365.25,
-  censdate = deathdtm
+  censdate = deathdtm,
+  warning = FALSE
 )
 
 
@@ -192,7 +194,8 @@ rs_data_test <- create_sosvar(
   diakod = " I",
   diavar = HDIA,
   stoptime,
-  censdate = deathdtm
+  censdate = deathdtm,
+  warning = FALSE
 )
 
 expect_that(sum(rs_data_test$sos_com_cv1y == 1), equals(222))

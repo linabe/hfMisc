@@ -4,8 +4,7 @@
 #' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
 #'
 #' Calculates comobidites and outcomes (including time to for the latter)
-#'   from DIA, OP and ekod variables from National Patient Registry
-#'   or Cause of Death Registry.
+#'   from DIA, OP and ekod variables from National Patient Registry.
 #'
 #'
 #' @param sosdata Data where DIA, OP, Ekod variables are found.
@@ -18,8 +17,14 @@
 #'   identifies unique posts.
 #' @param sosdate Date of incident (comorbidity or outcome)
 #'   in sosdata. Default is sosdtm.
-#' @param censdate Only for type = "out". Outcomes are
-#'   up until this time point (usually date of death or censoring).
+#' @param censdate Vector of dates. Only applicaple for type = "out". Outcomes are
+#'   allowed up until this day (usually date of death or end follow-up).
+#' @param allowedcenslimit Optional single value with allowed time unit between
+#'   sosdate and censdate that still makes the sosdate be a valid event.
+#'   Used for example when patients who are discharded day after death
+#'   should still be counted as an event.
+#'   Can cause unexpected results if the sos_data contains information > than
+#'   last follow-up.
 #' @param type Possible values are "out" and "com".
 #'   Is the resulting variable an outcome (and time to is calculated)
 #'   or comorbidity?
@@ -30,8 +35,8 @@
 #'   PRIOR to indexdate to . Indexdate = 0, all values prior to
 #'   indexdate are negative. Default is 1 ("out") and 0 ("com").
 #' @param stoptime If type = "out" amount of time (in days) AFTER indexdate to
-#'   be counted. If type = "com" amount of time (in days) PRIOR to indexdate
-#'   to Indexdate = 0, all values prior to indexdate are negative.
+#'   be counted. If type = "com" amount of time (in days) PRIOR to indexdate.
+#'   Indexdate = 0, all values prior to indexdate are negative.
 #'   Default is any time prior to starttime is considered a comorbidity
 #'   and any time after starttime is considered an outcome.
 #' @param diakod String of icd codes as a regular expression
@@ -49,6 +54,10 @@
 #'   with blank space " ". Default is OP_all.
 #' @param evar Column where ekod is found. All codes should start
 #'   with blank space " ". Default is ekod_all.
+#' @param valsclass optional argument specifying the class of the
+#'   comorbidities/outcomes. Allowed values are "num" (numeric: 1, 0),
+#'   "char" (character: "yes", "no"), "fac" (factor: "yes", "no").
+#'   Default is "num".
 #' @param meta_reg Optional argument specifying registries used. Printed in
 #'   metadatatable. Default is
 #'   "Patientregistret, sluten-, oppenvard- och dagkirurgi".
@@ -57,6 +66,7 @@
 #' @param warnings Should warnings be printed. Default is FALSE.
 #'
 #' @seealso \code{\link{prep_sosdata}}
+#' @seealso \code{\link{create_deathvar}}
 #'
 #' @return dataset with column containing comorbidity/outcome.
 #'   Also dataset metaout that writes directly to global enviroment
@@ -67,7 +77,7 @@
 #'
 #' sos_data <- prep_sosdata(sos_data)
 #'
-#' rs_data_test <- create_sosvar(
+#' rs_data <- create_sosvar(
 #'   sosdata = sos_data,
 #'   cohortdata = rs_data,
 #'   patid = id,
@@ -90,9 +100,10 @@ create_sosvar <- function(sosdata,
                           add_unique,
                           sosdate = sosdtm,
                           censdate,
+                          allowedcenslimit = 0,
                           type,
                           name,
-                          starttime = ifelse(type == "out", 1, 0),
+                          starttime = ifelse(type == "com", 0, 1),
                           stoptime,
                           diakod,
                           opkod,
@@ -100,10 +111,11 @@ create_sosvar <- function(sosdata,
                           diavar = DIA_all,
                           opvar = OP_all,
                           evar = ekod_all,
+                          valsclass = "num",
                           meta_reg =
                             "Patientregistret, sluten-, oppenvard- och dagkirurgi",
                           meta_pos,
-                          warnings = FALSE) {
+                          warnings = TRUE) {
   patid <- enquo(patid)
   indexdate <- enquo(indexdate)
   sosdate <- enquo(sosdate)
@@ -258,9 +270,9 @@ create_sosvar <- function(sosdata,
     ) %>%
       mutate(
         !!name2 := tidyr::replace_na(!!sym(name2), 0),
-        !!name2 := ifelse(!is.na(!!sosdate) & !!sosdate - 10 > !!censdate, 0,
-                          # allow sosdate to be more than 10 days after censdate
-                          # (to ensure that pats that have date of discharge AFTER
+        !!name2 := ifelse(!is.na(!!sosdate) & !!sosdate - allowedcenslimit > !!censdate, 0,
+                          # allow sosdate to be x days after censdate
+                          # (to fix that pats that have date of discharge AFTER
                           # date of death are still counted as an event)
           !!sym(name2)
         ),
@@ -270,25 +282,35 @@ create_sosvar <- function(sosdata,
       select(-!!sosdate)
   }
 
+  if (valsclass %in% c("char", "fac")){
+    out_data <- out_data %>%
+      mutate(!!name2 := case_when(!!sym(name2) == 1 ~ "yes",
+                                  TRUE ~ "no"))
+    if (valsclass == "fac"){
+      out_data <- out_data %>%
+        mutate(!!name2 := factor(!!sym(name2)))
+    }
+
+  }
+
   # create meta data to print in table in statistical report
   fixkod <- function(kod) {
     kod <- stringr::str_replace_all(kod, " ", "")
-    kod <- stringr::str_replace_all(kod, "\\|", ", ")
+    kod <- stringr::str_replace_all(kod, "\\|", ",")
     kod <- stringr::str_replace_all(kod, "\\(\\?!", " (excl. ")
     kod <- paste0(kod, collapse = ": ")
   }
 
   meta_kod <- paste(
     if (!missing(diakod)) {
-      paste0("ICD: ", fixkod(diakod))
+      paste0("ICD:", fixkod(diakod))
     },
     if (!missing(opkod)) {
-      paste0("OP: ", fixkod(opkod))
+      paste0("OP:", fixkod(opkod))
     },
     if (!missing(ekod)) {
-      paste0("Ekod: ", fixkod(ekod))
-    },
-    sep = ", "
+      paste0("Ekod:", fixkod(ekod))
+    }
   )
 
 

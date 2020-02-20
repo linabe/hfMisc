@@ -38,8 +38,7 @@
 <meta property="og:title" content="Calculates comobidites and outcomes from SoS data — create_sosvar" />
 <meta property="og:description" content="
 Calculates comobidites and outcomes (including time to for the latter)
-from DIA, OP and ekod variables from National Patient Registry
-or Cause of Death Registry." />
+from DIA, OP and ekod variables from National Patient Registry." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -72,7 +71,7 @@ or Cause of Death Registry." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hfmisc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
       </span>
     </div>
 
@@ -119,16 +118,16 @@ or Cause of Death Registry." />
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
 <p>Calculates comobidites and outcomes (including time to for the latter)
-from DIA, OP and ekod variables from National Patient Registry
-or Cause of Death Registry.</p>
+from DIA, OP and ekod variables from National Patient Registry.</p>
     </div>
 
     <pre class="usage"><span class='fu'>create_sosvar</span>(<span class='no'>sosdata</span>, <span class='no'>cohortdata</span>, <span class='kw'>patid</span> <span class='kw'>=</span> <span class='no'>lopnr</span>, <span class='kw'>indexdate</span> <span class='kw'>=</span> <span class='no'>indexdtm</span>,
-  <span class='no'>add_unique</span>, <span class='kw'>sosdate</span> <span class='kw'>=</span> <span class='no'>sosdtm</span>, <span class='no'>censdate</span>, <span class='no'>type</span>, <span class='no'>name</span>,
-  <span class='kw'>starttime</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>type</span> <span class='kw'>==</span> <span class='st'>"out"</span>, <span class='fl'>1</span>, <span class='fl'>0</span>), <span class='no'>stoptime</span>, <span class='no'>diakod</span>, <span class='no'>opkod</span>, <span class='no'>ekod</span>,
-  <span class='kw'>diavar</span> <span class='kw'>=</span> <span class='no'>DIA_all</span>, <span class='kw'>opvar</span> <span class='kw'>=</span> <span class='no'>OP_all</span>, <span class='kw'>evar</span> <span class='kw'>=</span> <span class='no'>ekod_all</span>,
+  <span class='no'>add_unique</span>, <span class='kw'>sosdate</span> <span class='kw'>=</span> <span class='no'>sosdtm</span>, <span class='no'>censdate</span>, <span class='kw'>allowedcenslimit</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>type</span>,
+  <span class='no'>name</span>, <span class='kw'>starttime</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>type</span> <span class='kw'>==</span> <span class='st'>"com"</span>, <span class='fl'>0</span>, <span class='fl'>1</span>), <span class='no'>stoptime</span>, <span class='no'>diakod</span>, <span class='no'>opkod</span>,
+  <span class='no'>ekod</span>, <span class='kw'>diavar</span> <span class='kw'>=</span> <span class='no'>DIA_all</span>, <span class='kw'>opvar</span> <span class='kw'>=</span> <span class='no'>OP_all</span>, <span class='kw'>evar</span> <span class='kw'>=</span> <span class='no'>ekod_all</span>,
+  <span class='kw'>valsclass</span> <span class='kw'>=</span> <span class='st'>"num"</span>,
   <span class='kw'>meta_reg</span> <span class='kw'>=</span> <span class='st'>"Patientregistret, sluten-, oppenvard- och dagkirurgi"</span>,
-  <span class='no'>meta_pos</span>, <span class='kw'>warnings</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='no'>meta_pos</span>, <span class='kw'>warnings</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,51 +162,60 @@ in sosdata. Default is sosdtm.</p></td>
     </tr>
     <tr>
       <th>censdate</th>
-      <td><p>Only for type = "out". Outcomes are
-up until this time point (usually date of death or censoring).</p></td>
+      <td><p>Vector of dates. Only applicaple for type = "out". Outcomes are
+allowed up until this day (usually date of death or end follow-up).</p></td>
+    </tr>
+    <tr>
+      <th>allowedcenslimit</th>
+      <td><p>Optional single value with allowed time unit between
+sosdate and censdate that still makes the sosdate be a valid event.
+Used for example when patients who are discharded day after death
+should still be counted as an event.
+Can cause unexpected results if the sos_data contains information &gt; than
+last follow-up.</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>Possible values are "out" and "mh".
+      <td><p>Possible values are "out" and "com".
 Is the resulting variable an outcome (and time to is calculated)
-or medical history (comorbidity)?</p></td>
+or comorbidity?</p></td>
     </tr>
     <tr>
       <th>name</th>
       <td><p>Name of resulting variable
-(prefix sos_out_ is added to outcome and sos_mh_ to medical history).</p></td>
+(prefix sos_out_ is added to outcome and sos_com_ to comorbidity).</p></td>
     </tr>
     <tr>
       <th>starttime</th>
       <td><p>If type = "out" amount of time (in days) AFTER indexdate
-to start counted as outcome. If type = "mh" amount of time (in days)
+to start counted as outcome. If type = "com" amount of time (in days)
 PRIOR to indexdate to . Indexdate = 0, all values prior to
-indexdate are negative. Default is 1 ("out") and 0 ("mh").</p></td>
+indexdate are negative. Default is 1 ("out") and 0 ("com").</p></td>
     </tr>
     <tr>
       <th>stoptime</th>
       <td><p>If type = "out" amount of time (in days) AFTER indexdate to
-be counted. If type = "mh" amount of time (in days) PRIOR to indexdate
-to Indexdate = 0, all values prior to indexdate are negative.
+be counted. If type = "com" amount of time (in days) PRIOR to indexdate.
+Indexdate = 0, all values prior to indexdate are negative.
 Default is any time prior to starttime is considered a comorbidity
 and any time after starttime is considered an outcome.</p></td>
     </tr>
     <tr>
       <th>diakod</th>
       <td><p>String of icd codes as a regular expression
-defining the outcome/medical history. Should start
+defining the outcome/comorbidity. Should start
 with blank space " ".</p></td>
     </tr>
     <tr>
       <th>opkod</th>
       <td><p>String of procedure codes as a regular expression
-defining the outcome/medical history. Should start
+defining the outcome/comorbidity. Should start
 with blank space " ".</p></td>
     </tr>
     <tr>
       <th>ekod</th>
       <td><p>String of e codes as a regular expression defining
-the outcome/medical history. Should start
+the outcome/comorbidity. Should start
 with blank space " ".</p></td>
     </tr>
     <tr>
@@ -224,6 +232,13 @@ with blank space " ". Default is OP_all.</p></td>
       <th>evar</th>
       <td><p>Column where ekod is found. All codes should start
 with blank space " ". Default is ekod_all.</p></td>
+    </tr>
+    <tr>
+      <th>valsclass</th>
+      <td><p>optional argument specifying the class of the
+comorbidities/outcomes. Allowed values are "num" (numeric: 1, 0),
+"char" (character: "yes", "no"), "fac" (factor: "yes", "no").
+Default is "num".</p></td>
     </tr>
     <tr>
       <th>meta_reg</th>
@@ -244,28 +259,29 @@ outcomes/comorbidities. Printed in metadatatable.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>dataset with column containing medical history/outcome.
+    <p>dataset with column containing comorbidity/outcome.
 Also dataset metaout that writes directly to global enviroment
 with information on constructed variables.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='prep_sosdata.html'>prep_sosdata</a></code></p></div>
+    <div class='dont-index'><p><code><a href='prep_sosdata.html'>prep_sosdata</a></code></p>
+<p><code><a href='create_deathvar.html'>create_deathvar</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='no'>sos_data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='prep_sosdata.html'>prep_sosdata</a></span>(<span class='no'>sos_data</span>)
 
-<span class='no'>rs_data_test</span> <span class='kw'>&lt;-</span> <span class='fu'>create_sosvar</span>(
+<span class='no'>rs_data</span> <span class='kw'>&lt;-</span> <span class='fu'>create_sosvar</span>(
   <span class='kw'>sosdata</span> <span class='kw'>=</span> <span class='no'>sos_data</span>,
   <span class='kw'>cohortdata</span> <span class='kw'>=</span> <span class='no'>rs_data</span>,
   <span class='kw'>patid</span> <span class='kw'>=</span> <span class='no'>id</span>,
   <span class='kw'>indexdate</span> <span class='kw'>=</span> <span class='no'>indexdtm</span>,
   <span class='kw'>sosdate</span> <span class='kw'>=</span> <span class='no'>sosdtm</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"mh"</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"com"</span>,
   <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"cv1y"</span>,
   <span class='kw'>diakod</span> <span class='kw'>=</span> <span class='st'>" I"</span>,
   <span class='kw'>stoptime</span> <span class='kw'>=</span> -<span class='fl'>365.25</span>
-)</div></pre>
+)</div><div class='output co'>#&gt; <span class='warning'>Warning: id is not unique in cohortdata. Output data will be for unique id and indexdtm.</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

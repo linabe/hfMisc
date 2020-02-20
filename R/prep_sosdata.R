@@ -78,15 +78,15 @@ prep_sosdata <- function(sosdata,
       sosdata <- sosdata %>%
         mutate(
           # saknas datum Sahlgrenska dagkirurgi 1999 och Arvika, Torsby 2009
-          # oppenvard så imp med 1 jan år
-          sosdtm = coalesce(UTDATUM, INDATUM, lubridate::ymd(paste0(AR, "-01-01")))
+          # oppenvard så imp med 30 juni år
+          sosdtm = coalesce(UTDATUM, INDATUM, lubridate::ymd(paste0(AR, "-06-30")))
         )
     } else {
       sosdata <- sosdata %>%
         mutate(
           # saknas datum Sahlgrenska dagkirurgi 1999 och Arvika, Torsby 2009
           # oppenvard så imp med 1 jan år
-          sosdtm = coalesce(INDATUM, lubridate::ymd(paste0(AR, "-01-01")))
+          sosdtm = coalesce(INDATUM, lubridate::ymd(paste0(AR, "-06-30")))
         )
     }
     sosdata <- sosdata %>%

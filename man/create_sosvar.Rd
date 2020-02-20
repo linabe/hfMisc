@@ -5,11 +5,12 @@
 \title{Calculates comobidites and outcomes from SoS data}
 \usage{
 create_sosvar(sosdata, cohortdata, patid = lopnr, indexdate = indexdtm,
-  add_unique, sosdate = sosdtm, censdate, type, name,
-  starttime = ifelse(type == "out", 1, 0), stoptime, diakod, opkod, ekod,
-  diavar = DIA_all, opvar = OP_all, evar = ekod_all,
+  add_unique, sosdate = sosdtm, censdate, allowedcenslimit = 0, type,
+  name, starttime = ifelse(type == "com", 0, 1), stoptime, diakod, opkod,
+  ekod, diavar = DIA_all, opvar = OP_all, evar = ekod_all,
+  valsclass = "num",
   meta_reg = "Patientregistret, sluten-, oppenvard- och dagkirurgi",
-  meta_pos, warnings = FALSE)
+  meta_pos, warnings = TRUE)
 }
 \arguments{
 \item{sosdata}{Data where DIA, OP, Ekod variables are found.}
@@ -28,8 +29,15 @@ identifies unique posts.}
 \item{sosdate}{Date of incident (comorbidity or outcome)
 in sosdata. Default is sosdtm.}
 
-\item{censdate}{Only for type = "out". Outcomes are
-up until this time point (usually date of death or censoring).}
+\item{censdate}{Vector of dates. Only applicaple for type = "out". Outcomes are
+allowed up until this day (usually date of death or end follow-up).}
+
+\item{allowedcenslimit}{Optional single value with allowed time unit between
+sosdate and censdate that still makes the sosdate be a valid event.
+Used for example when patients who are discharded day after death
+should still be counted as an event.
+Can cause unexpected results if the sos_data contains information > than
+last follow-up.}
 
 \item{type}{Possible values are "out" and "com".
 Is the resulting variable an outcome (and time to is calculated)
@@ -44,8 +52,8 @@ PRIOR to indexdate to . Indexdate = 0, all values prior to
 indexdate are negative. Default is 1 ("out") and 0 ("com").}
 
 \item{stoptime}{If type = "out" amount of time (in days) AFTER indexdate to
-be counted. If type = "com" amount of time (in days) PRIOR to indexdate
-to Indexdate = 0, all values prior to indexdate are negative.
+be counted. If type = "com" amount of time (in days) PRIOR to indexdate.
+Indexdate = 0, all values prior to indexdate are negative.
 Default is any time prior to starttime is considered a comorbidity
 and any time after starttime is considered an outcome.}
 
@@ -70,6 +78,11 @@ with blank space " ". Default is OP_all.}
 \item{evar}{Column where ekod is found. All codes should start
 with blank space " ". Default is ekod_all.}
 
+\item{valsclass}{optional argument specifying the class of the
+comorbidities/outcomes. Allowed values are "num" (numeric: 1, 0),
+"char" (character: "yes", "no"), "fac" (factor: "yes", "no").
+Default is "num".}
+
 \item{meta_reg}{Optional argument specifying registries used. Printed in
 metadatatable. Default is
 "Patientregistret, sluten-, oppenvard- och dagkirurgi".}
@@ -88,14 +101,13 @@ with information on constructed variables.
 \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
 
 Calculates comobidites and outcomes (including time to for the latter)
-from DIA, OP and ekod variables from National Patient Registry
-or Cause of Death Registry.
+from DIA, OP and ekod variables from National Patient Registry.
 }
 \examples{
 
 sos_data <- prep_sosdata(sos_data)
 
-rs_data_test <- create_sosvar(
+rs_data <- create_sosvar(
   sosdata = sos_data,
   cohortdata = rs_data,
   patid = id,
@@ -109,4 +121,6 @@ rs_data_test <- create_sosvar(
 }
 \seealso{
 \code{\link{prep_sosdata}}
+
+\code{\link{create_deathvar}}
 }

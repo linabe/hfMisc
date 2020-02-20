@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data from RiksSvikt (SwedeHF) — rs_data • hfmisc</title>
+<title>Data from Cause of Death Registry — dors_data • hfmisc</title>
 
 
 <!-- jquery -->
@@ -35,9 +35,9 @@
 
 
 
-<meta property="og:title" content="Data from RiksSvikt (SwedeHF) — rs_data" />
-<meta property="og:description" content="rs_data aims to mimic data from SwedeHF (RiksSvikt),
-used in the examples given in functions prep_sosdata, create_sosvar and create_deathvar." />
+<meta property="og:title" content="Data from Cause of Death Registry — dors_data" />
+<meta property="og:description" content="dors_data aims to mimic data recived from Socialstyrelsen,
+used in the examples given in functions prep_sosdata and create_deathvar." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,25 +109,25 @@ used in the examples given in functions prep_sosdata, create_sosvar and create_d
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Data from RiksSvikt (SwedeHF)</h1>
+    <h1>Data from Cause of Death Registry</h1>
     <small class="dont-index">Source: <a href='https://github.com/linabe/hfmisc/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>rs_data.Rd</code></div>
+    <div class="hidden name"><code>dors_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>rs_data aims to mimic data from SwedeHF (RiksSvikt),
-used in the examples given in functions prep_sosdata, create_sosvar and create_deathvar.</p>
+    <p>dors_data aims to mimic data recived from Socialstyrelsen,
+used in the examples given in functions prep_sosdata and create_deathvar.</p>
     </div>
 
-    <pre class="usage"><span class='no'>rs_data</span></pre>
+    <pre class="usage"><span class='no'>dors_data</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame with 500 rows and 3 variables:</p><dl class='dl-horizontal'>
+    <p>A data frame with 100 rows and 3 variables:</p><dl class='dl-horizontal'>
 <dt>id</dt><dd><p>Patient id. Not unique. Integer.</p></dd>
-<dt>indexdtm</dt><dd><p>Index date. Combination id and date is unique. Date.</p></dd>
-<dt>deathdtm</dt><dd><p>Date of death or 2015-12-31 (censored). Date.</p></dd>
+<dt>ULORSAK</dt><dd><p>Underlaying cause of death</p></dd>
+<dt>DODSDAT</dt><dd><p>Date of death</p></dd>
 
 </dl>
 

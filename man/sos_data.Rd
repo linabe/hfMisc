@@ -3,7 +3,7 @@
 \docType{data}
 \name{sos_data}
 \alias{sos_data}
-\title{Data from Socialstyrelsen}
+\title{Data from National Patient Registry}
 \format{A data frame with 5500 rows and 8 variables:
 \describe{
 \item{id}{Patient id. Not unique. Integer.}
@@ -22,6 +22,6 @@ sos_data
 }
 \description{
 sos_data aims to mimic data recived from Socialstyrelsen,
-used in the examples given in functions create_sosdata and create_sosvar.
+used in the examples given in functions prep_sosdata and create_sosvar.
 }
 \keyword{datasets}

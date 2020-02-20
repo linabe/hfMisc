@@ -1,7 +1,7 @@
-#' Data from Socialstyrelsen
+#' Data from National Patient Registry
 #'
 #' sos_data aims to mimic data recived from Socialstyrelsen,
-#'   used in the examples given in functions create_sosdata and create_sosvar.
+#'   used in the examples given in functions prep_sosdata and create_sosvar.
 #'
 #' @format A data frame with 5500 rows and 8 variables:
 #' \describe{
@@ -18,11 +18,23 @@
 #' }
 "sos_data"
 
+#' Data from Cause of Death Registry
+#'
+#' dors_data aims to mimic data recived from Socialstyrelsen,
+#'   used in the examples given in functions prep_sosdata and create_deathvar.
+#'
+#' @format A data frame with 100 rows and 3 variables:
+#' \describe{
+#'   \item{id}{Patient id. Not unique. Integer.}
+#'   \item{ULORSAK}{Underlaying cause of death}
+#'   \item{DODSDAT}{Date of death}
+#' }
+"dors_data"
 
 #' Data from RiksSvikt (SwedeHF)
 #'
 #' rs_data aims to mimic data from SwedeHF (RiksSvikt),
-#'   used in the examples given in functions create_sosdata and create_sosvar.
+#'   used in the examples given in functions prep_sosdata, create_sosvar and create_deathvar.
 #'
 #' @format A data frame with 500 rows and 3 variables:
 #' \describe{
@@ -31,3 +43,4 @@
 #'   \item{deathdtm}{Date of death or 2015-12-31 (censored). Date.}
 #' }
 "rs_data"
+
