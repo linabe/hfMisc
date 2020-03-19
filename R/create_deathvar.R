@@ -83,7 +83,7 @@ create_deathvar <- function(cohortdata,
   name2 <- paste0("sos_out_death", name)
   if (calctimetodeath) timename2 <- paste0("sos_outtime_death", name)
 
-  if (any(has_name(cohortdata, name2))) {
+  if (any(rlang::has_name(cohortdata, name2))) {
     if (warnings) {
       warning(paste0(
         name2, " already exists in cohortdata. This might cause unexpected results."
@@ -126,7 +126,7 @@ create_deathvar <- function(cohortdata,
   else {
     tmp_data <- left_join(cohortdata,
       sosdata %>% dplyr::select(!!patid, !!orsakvar),
-      by = as_name(patid)
+      by = rlang::as_name(patid)
     ) %>%
       mutate(
         !!name2 := stringr::str_detect(!!orsakvar, orsakkod),
@@ -170,7 +170,7 @@ create_deathvar <- function(cohortdata,
   meta_time <- ""
 
   if (missing(meta_pos)) {
-    meta_pos <- paste(as_name(orsakvar))
+    meta_pos <- paste(rlang::as_name(orsakvar))
   }
 
   metatmp <- data.frame(name2, meta_kod, meta_reg, meta_pos, meta_time)

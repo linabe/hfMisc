@@ -13,3 +13,7 @@ only have inpact if UTDATUM = TRUE.
 * Added optional parameter valsclass with option to output the comorb/outcome as
 a character or factor variable. 
 * Added function create_deathvar and dataset dors_data
+
+# hfmisc 0.0.3
+
+* Trim trailing whitespace for variables DIA_all, OP_all, ekod_all, ORSAK_all in prep_sosdata

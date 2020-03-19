@@ -127,23 +127,23 @@ create_sosvar <- function(sosdata,
   evar <- enquo(evar)
 
   # check input arguments ok
-  if (!has_name(sosdata, as_name(patid))) {
+  if (!rlang::has_name(sosdata, rlang::as_name(patid))) {
     stop(paste0(as_label(patid), " does not exist in sosdata"))
   }
 
-  if (!has_name(cohortdata, as_name(patid))) {
+  if (!rlang::has_name(cohortdata, rlang::as_name(patid))) {
     stop(paste0(as_label(patid), " does not exist in cohortdata"))
   }
 
-  if (!has_name(cohortdata, as_name(indexdate))) {
+  if (!rlang::has_name(cohortdata, rlang::as_name(indexdate))) {
     stop(paste0(as_label(indexdate), " does not exist in cohortdata"))
   }
 
-  if (!has_name(sosdata, as_name(sosdate))) {
+  if (!rlang::has_name(sosdata, rlang::as_name(sosdate))) {
     stop(paste0(as_label(sosdate), " does not exist in sosdata"))
   }
 
-  if (any(has_name(sosdata, names(cohortdata)[!names(cohortdata) == "id"]))) {
+  if (any(rlang::has_name(sosdata, names(cohortdata)[!names(cohortdata) == rlang::as_name(patid)]))) {
     if (warnings) {
       warning(paste0(
         "cohortdata and sosdata have overlapping columns. Only ",
@@ -167,7 +167,7 @@ create_sosvar <- function(sosdata,
   name2 <- paste0("sos_", type, "_", name)
   if (type == "out") timename2 <- paste0("sos_outtime_", name)
 
-  if (any(has_name(cohortdata, name2))) {
+  if (any(rlang::has_name(cohortdata, name2))) {
     if (warnings) {
       warning(paste0(
         name2, " already exists in cohortdata. This might cause unexpected results."
@@ -186,23 +186,23 @@ create_sosvar <- function(sosdata,
   }
 
   if (!any(duplicated(cohortdata %>% select(!!patid)))) {
-    groupbyvars <- as_name(patid)
+    groupbyvars <- rlang::as_name(patid)
   } else {
     if (!any(duplicated(cohortdata %>% select(!!patid, !!indexdate)))) {
-      groupbyvars <- c(as_name(patid), as_name(indexdate))
+      groupbyvars <- c(rlang::as_name(patid), rlang::as_name(indexdate))
       if (warnings) {
         warning(paste0(
-          as_name(patid),
+          rlang::as_name(patid),
           " is not unique in cohortdata. Output data will be for unique ",
-          as_name(patid), " and ", as_name(indexdate), "."
+          rlang::as_name(patid), " and ", rlang::as_name(indexdate), "."
         ))
       }
     } else {
       if (!missing(add_unique)) {
-        groupbyvars <- c(as_name(patid), as_name(add_unique))
+        groupbyvars <- c(rlang::as_name(patid), rlang::as_name(add_unique))
       } else {
         stop(paste0(
-          as_name(patid), " and ", as_name(indexdate),
+          rlang::as_name(patid), " and ", rlang::as_name(indexdate),
           " are not unique in cohortdata. Supply additional
           unique column in argument add_unique (for example postnr)."
         ))
@@ -213,7 +213,7 @@ create_sosvar <- function(sosdata,
   tmp_data <- inner_join(cohortdata %>%
     select(!!patid, !!indexdate, !!!syms(groupbyvars)),
   sosdata,
-  by = as_name(patid)
+  by = rlang::as_name(patid)
   ) %>%
     mutate(difft = difftime(!!sosdate, !!indexdate,
       units = "days"
@@ -318,9 +318,9 @@ create_sosvar <- function(sosdata,
 
   if (missing(meta_pos)) {
     meta_pos <- paste(
-      if (!missing(diakod)) as_name(diavar),
-      if (!missing(opkod)) as_name(opvar),
-      if (!missing(ekod)) as_name(evar),
+      if (!missing(diakod)) rlang::as_name(diavar),
+      if (!missing(opkod)) rlang::as_name(opvar),
+      if (!missing(ekod)) rlang::as_name(evar),
       sep = " "
     )
   }
