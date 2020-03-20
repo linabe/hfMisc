@@ -86,7 +86,8 @@
 #'   type = "com",
 #'   name = "cv1y",
 #'   diakod = " I",
-#'   stoptime = -365.25
+#'   stoptime = -365.25,
+#'   warnings = FALSE
 #' )
 #' @import dplyr
 #' @import rlang

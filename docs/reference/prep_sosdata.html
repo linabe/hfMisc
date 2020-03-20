@@ -75,7 +75,7 @@ usethis::use_lifecycle_badge(&quot;stable&quot;)" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hfmisc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
       </span>
     </div>
 
@@ -174,12 +174,14 @@ in front of HDIA and sosdtm.</p>
     <div class='dont-index'><p><code><a href='create_sosvar.html'>create_sosvar</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='no'>sos_data</span> <span class='kw'>&lt;-</span> <span class='fu'>bind_rows</span>(
-  <span class='no'>sv</span> <span class='kw'>%&gt;%</span> <span class='fu'>mutate</span>(<span class='kw'>source</span> <span class='kw'>=</span> <span class='st'>"SV"</span>),
-  <span class='no'>ov</span> <span class='kw'>%&gt;%</span> <span class='fu'>mutate</span>(<span class='kw'>source</span> <span class='kw'>=</span> <span class='st'>"OV"</span>),
-  <span class='no'>dagkir</span> <span class='kw'>%&gt;%</span> <span class='fu'>mutate</span>(<span class='kw'>source</span> <span class='kw'>=</span> <span class='st'>"DK"</span>)
-)</div><div class='output co'>#&gt; <span class='error'>Error in bind_rows(sv %&gt;% mutate(source = "SV"), ov %&gt;% mutate(source = "OV"),     dagkir %&gt;% mutate(source = "DK")): could not find function "bind_rows"</span></div><div class='input'><span class='co'># }</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+<span class='no'>sos_data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span>(
+  <span class='no'>sv</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>source</span> <span class='kw'>=</span> <span class='st'>"SV"</span>),
+  <span class='no'>ov</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>source</span> <span class='kw'>=</span> <span class='st'>"OV"</span>),
+  <span class='no'>dagkir</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>source</span> <span class='kw'>=</span> <span class='st'>"DK"</span>)
+)
+}
 <span class='no'>sos_data</span> <span class='kw'>&lt;-</span> <span class='fu'>prep_sosdata</span>(<span class='no'>sos_data</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

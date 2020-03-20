@@ -30,7 +30,8 @@
 #'   in front of HDIA and sosdtm.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
+#' library(dplyr)
 #' sos_data <- bind_rows(
 #'   sv %>% mutate(source = "SV"),
 #'   ov %>% mutate(source = "OV"),
@@ -70,9 +71,9 @@ prep_sosdata <- function(sosdata,
       # rename HDIA back to org name
       rename(HDIA = tmp_H) %>%
       mutate(
-        DIA_all = trimws(paste0(" ", DIA_all), which = "right"),
-        OP_all = trimws(paste0(" ", OP_all), which = "right"),
-        ekod_all = trimws(paste0(" ", ekod_all), which = "right")
+        DIA_all = paste0(" ", stringr::str_squish(DIA_all)),
+        OP_all = paste0(" ", stringr::str_squish(OP_all)),
+        ekod_all = paste0(" ", stringr::str_squish(ekod_all))
       )
     if (utdatum) {
       sosdata <- sosdata %>%
@@ -108,7 +109,7 @@ prep_sosdata <- function(sosdata,
       # rename ULORSAK back to org name
       rename(ULORSAK = tmp_U) %>%
       mutate(
-        ORSAK_all = trimws(paste0(" ", ORSAK_all), which = "right")
+        ORSAK_all = paste0(" ", stringr::str_squish(ORSAK_all))
       )
     sosdata <- sosdata %>%
       filter(!is.na(DODSDAT))

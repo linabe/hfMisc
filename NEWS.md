@@ -17,3 +17,7 @@ a character or factor variable.
 # hfmisc 0.0.3
 
 * Trim trailing whitespace for variables DIA_all, OP_all, ekod_all, ORSAK_all in prep_sosdata
+
+# hfmisc 0.0.4
+
+* Trim all extra whitespaces for variables DIA_all, OP_all, ekod_all, ORSAK_all in prep_sosdata

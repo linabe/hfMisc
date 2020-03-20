@@ -41,7 +41,8 @@ internal memory (by joining columns together) and removing surplus columns.
 usethis::use_lifecycle_badge("stable")
 }
 \examples{
-\donttest{
+\dontrun{
+library(dplyr)
 sos_data <- bind_rows(
   sv \%>\% mutate(source = "SV"),
   ov \%>\% mutate(source = "OV"),
