@@ -8,9 +8,8 @@ create_sosvar(sosdata, cohortdata, patid = lopnr, indexdate = indexdtm,
   add_unique, sosdate = sosdtm, censdate, allowedcenslimit = 0, type,
   name, starttime = ifelse(type == "com", 0, 1), stoptime, diakod, opkod,
   ekod, diavar = DIA_all, opvar = OP_all, evar = ekod_all,
-  valsclass = "num",
-  meta_reg = "Patientregistret, sluten-, oppenvard- och dagkirurgi",
-  meta_pos, warnings = TRUE)
+  valsclass = "num", meta_reg = "NPR (in+out)", meta_pos,
+  warnings = TRUE)
 }
 \arguments{
 \item{sosdata}{Data where DIA, OP, Ekod variables are found.}
@@ -85,7 +84,7 @@ Default is "num".}
 
 \item{meta_reg}{Optional argument specifying registries used. Printed in
 metadatatable. Default is
-"Patientregistret, sluten-, oppenvard- och dagkirurgi".}
+"NPR (in+out)".}
 
 \item{meta_pos}{Optional argument specifying positions used to search for
 outcomes/comorbidities. Printed in metadatatable.}

@@ -60,7 +60,7 @@
 #'   Default is "num".
 #' @param meta_reg Optional argument specifying registries used. Printed in
 #'   metadatatable. Default is
-#'   "Patientregistret, sluten-, oppenvard- och dagkirurgi".
+#'   "NPR (in+out)".
 #' @param meta_pos Optional argument specifying positions used to search for
 #'   outcomes/comorbidities. Printed in metadatatable.
 #' @param warnings Should warnings be printed. Default is FALSE.
@@ -114,7 +114,7 @@ create_sosvar <- function(sosdata,
                           evar = ekod_all,
                           valsclass = "num",
                           meta_reg =
-                            "Patientregistret, sluten-, oppenvard- och dagkirurgi",
+                            "NPR (in+out)",
                           meta_pos,
                           warnings = TRUE) {
   patid <- enquo(patid)
@@ -297,6 +297,8 @@ create_sosvar <- function(sosdata,
   # create meta data to print in table in statistical report
   fixkod <- function(kod) {
     kod <- stringr::str_replace_all(kod, " ", "")
+    kod <- stringr::str_replace_all(kod, "\\[", "")
+    kod <- stringr::str_replace_all(kod, "\\]", "")
     kod <- stringr::str_replace_all(kod, "\\|", ",")
     kod <- stringr::str_replace_all(kod, "\\(\\?!", " (excl. ")
     kod <- paste0(kod, collapse = ": ")

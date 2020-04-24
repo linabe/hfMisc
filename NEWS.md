@@ -21,3 +21,12 @@ a character or factor variable.
 # hfmisc 0.0.4
 
 * Trim all extra whitespaces for variables DIA_all, OP_all, ekod_all, ORSAK_all in prep_sosdata
+
+# hfmisc 0.0.5
+
+* [] not shown in metaout for create_sosvar
+
+# hfmisc 0.0.6
+
+* added restriction that death cannot occur after censdate in create_deathvar 
+* [] not shown in metaout for create_deathvar

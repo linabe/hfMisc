@@ -4,20 +4,18 @@
 \alias{create_deathvar}
 \title{Calculates death from SoS data}
 \usage{
-create_deathvar(cohortdata, sosdata, patid, indexdate, censdate,
+create_deathvar(cohortdata, indexdate, deathdate, censdate,
   calctimetodeath = FALSE, name, orsakkod, orsakvar = ULORSAK,
-  valsclass = "num", meta_reg = "Dodsorsaksregistret", meta_pos,
+  valsclass = "num", meta_reg = "Cause of Death", meta_pos,
   warnings = TRUE)
 }
 \arguments{
 \item{cohortdata}{Data containing the cohort.}
 
-\item{sosdata}{Optional data where ORSAK is found. If not supplied will use cohortdata.}
-
-\item{patid}{Patient identifier. Must be given if both cohortdata and sosdata are supplied.}
-
 \item{indexdate}{Index date for the patient (usually date of admission or
 discharge entered into SwedeHF). Must be given if calctimetodeath = TRUE.}
+
+\item{deathdate}{Vector of death dates.}
 
 \item{censdate}{Vector of dates. Deaths are
 allowed up until this day (usually date of death or end follow-up).}
@@ -28,10 +26,10 @@ allowed up until this day (usually date of death or end follow-up).}
 (prefix is sos_out_death).}
 
 \item{orsakkod}{String of icd codes as a regular expression
-defining the cause specific death. Should start
+defining the cause specific death. Should preferably start
 with blank space " ".}
 
-\item{orsakvar}{Column where diakod is found. All codes should start
+\item{orsakvar}{Column where diakod is found. All codes should preferably start
 with blank space " ". Default is ULORSAK.}
 
 \item{valsclass}{optional argument specifying the class of the
@@ -41,10 +39,10 @@ Default is "num".}
 
 \item{meta_reg}{Optional argument specifying registries used. Printed in
 metadatatable. Default is
-"Dödsorsaksregistret".}
+"Cause of Death".}
 
 \item{meta_pos}{Optional argument specifying positions used to search for
-outcomes/comorbidities. Printed in metadatatable.}
+deaths. Printed in metadatatable.}
 
 \item{warnings}{Should warnings be printed. Default is FALSE.}
 }
@@ -62,11 +60,10 @@ from codes in the Cause of Death Registry.
 \examples{
 
 dors_data <- prep_sosdata(dors_data, registry = "dors")
+rs_data <- dplyr::left_join(rs_data, dors_data, by = "id")
 
 rs_data <- create_deathvar(
-  sosdata = dors_data,
   cohortdata = rs_data,
-  patid = id,
   name = "cv",
   orsakkod = " I"
 )

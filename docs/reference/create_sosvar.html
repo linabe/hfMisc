@@ -71,7 +71,7 @@ from DIA, OP and ekod variables from National Patient Registry." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hfmisc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.6</span>
       </span>
     </div>
 
@@ -125,9 +125,8 @@ from DIA, OP and ekod variables from National Patient Registry.</p>
   <span class='no'>add_unique</span>, <span class='kw'>sosdate</span> <span class='kw'>=</span> <span class='no'>sosdtm</span>, <span class='no'>censdate</span>, <span class='kw'>allowedcenslimit</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>type</span>,
   <span class='no'>name</span>, <span class='kw'>starttime</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>type</span> <span class='kw'>==</span> <span class='st'>"com"</span>, <span class='fl'>0</span>, <span class='fl'>1</span>), <span class='no'>stoptime</span>, <span class='no'>diakod</span>, <span class='no'>opkod</span>,
   <span class='no'>ekod</span>, <span class='kw'>diavar</span> <span class='kw'>=</span> <span class='no'>DIA_all</span>, <span class='kw'>opvar</span> <span class='kw'>=</span> <span class='no'>OP_all</span>, <span class='kw'>evar</span> <span class='kw'>=</span> <span class='no'>ekod_all</span>,
-  <span class='kw'>valsclass</span> <span class='kw'>=</span> <span class='st'>"num"</span>,
-  <span class='kw'>meta_reg</span> <span class='kw'>=</span> <span class='st'>"Patientregistret, sluten-, oppenvard- och dagkirurgi"</span>,
-  <span class='no'>meta_pos</span>, <span class='kw'>warnings</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>valsclass</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>meta_reg</span> <span class='kw'>=</span> <span class='st'>"NPR (in+out)"</span>, <span class='no'>meta_pos</span>,
+  <span class='kw'>warnings</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -244,7 +243,7 @@ Default is "num".</p></td>
       <th>meta_reg</th>
       <td><p>Optional argument specifying registries used. Printed in
 metadatatable. Default is
-"Patientregistret, sluten-, oppenvard- och dagkirurgi".</p></td>
+"NPR (in+out)".</p></td>
     </tr>
     <tr>
       <th>meta_pos</th>
