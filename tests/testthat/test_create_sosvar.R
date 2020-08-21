@@ -205,3 +205,23 @@ expect_that(sum(rs_data_test$sos_out_cv == 1), equals(179))
 expect_that(sum(rs_data_test$sos_out_cv_HDIA == 1), equals(201))
 
 expect_that(sum(rs_data_test$sos_outtime_cv), equals(222021))
+
+
+# number of
+
+rs_data <- create_sosvar(
+  sosdata = sos_data_test,
+  cohortdata = rs_data,
+  patid = id,
+  indexdate = indexdtm,
+  sosdate = sosdtm,
+  noof = TRUE,
+  type = "out",
+  name = "repI",
+  diakod = " I",
+  diavar = DIA_all,
+  censdate = deathdtm,
+  warning = FALSE
+)
+
+expect_that(rs_data %>% count(sos_out_repI), equals(tibble(sos_out_repI = c(0, 1, 2, 3, 4, 5, 7), n = as.integer(c(287, 97, 76, 27, 8, 4, 1)))))

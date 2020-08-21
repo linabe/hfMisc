@@ -5,11 +5,11 @@
 \title{Calculates comobidites and outcomes from SoS data}
 \usage{
 create_sosvar(sosdata, cohortdata, patid = lopnr, indexdate = indexdtm,
-  add_unique, sosdate = sosdtm, censdate, allowedcenslimit = 0, type,
-  name, starttime = ifelse(type == "com", 0, 1), stoptime, diakod, opkod,
-  ekod, diavar = DIA_all, opvar = OP_all, evar = ekod_all,
-  valsclass = "num", meta_reg = "NPR (in+out)", meta_pos,
-  warnings = TRUE)
+  add_unique, sosdate = sosdtm, censdate, allowedcenslimit = 0,
+  noof = FALSE, type, name, starttime = ifelse(type == "com", 0, 1),
+  stoptime, diakod, opkod, ekod, diavar = DIA_all, opvar = OP_all,
+  evar = ekod_all, valsclass = "num", meta_reg = "NPR (in+out)",
+  meta_pos, warnings = TRUE)
 }
 \arguments{
 \item{sosdata}{Data where DIA, OP, Ekod variables are found.}
@@ -37,6 +37,9 @@ Used for example when patients who are discharded day after death
 should still be counted as an event.
 Can cause unexpected results if the sos_data contains information > than
 last follow-up.}
+
+\item{noof}{Should comorbs/outcomes be number of or first? Default it first (FALSE).
+No time to is calculated for noof = TRUE and type = "out".}
 
 \item{type}{Possible values are "out" and "com".
 Is the resulting variable an outcome (and time to is calculated)
