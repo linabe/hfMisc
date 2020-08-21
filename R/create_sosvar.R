@@ -25,6 +25,8 @@
 #'   should still be counted as an event.
 #'   Can cause unexpected results if the sos_data contains information > than
 #'   last follow-up.
+#' @param noof Should comorbs/outcomes be number of or first? Default it first (FALSE).
+#'   No time to is calculated for noof = TRUE and type = "out".
 #' @param type Possible values are "out" and "com".
 #'   Is the resulting variable an outcome (and time to is calculated)
 #'   or comorbidity?
@@ -102,6 +104,7 @@ create_sosvar <- function(sosdata,
                           sosdate = sosdtm,
                           censdate,
                           allowedcenslimit = 0,
+                          noof = FALSE,
                           type,
                           name,
                           starttime = ifelse(type == "com", 0, 1),
@@ -247,14 +250,63 @@ create_sosvar <- function(sosdata,
       1, 0
     ))
 
-  tmp_data <- tmp_data %>%
-    filter(!!(sym(name2)) == 1) %>%
-    group_by(!!!syms(groupbyvars)) %>%
-    arrange(!!sosdate) %>%
-    slice(1) %>%
-    ungroup()
+  if (!noof) {
+    tmp_data <- tmp_data %>%
+      filter(!!(sym(name2)) == 1) %>%
+      group_by(!!!syms(groupbyvars)) %>%
+      arrange(!!sosdate) %>%
+      slice(1) %>%
+      ungroup()
 
-  if (type == "com") {
+    if (type == "com") {
+      out_data <- left_join(
+        cohortdata,
+        tmp_data %>% dplyr::select(!!!syms(groupbyvars), !!name2),
+        by = groupbyvars
+      ) %>%
+        mutate(!!name2 := tidyr::replace_na(!!sym(name2), 0))
+    }
+
+    if (type == "out") {
+      out_data <- left_join(
+        cohortdata,
+        tmp_data %>% dplyr::select(!!!syms(groupbyvars), !!name2, !!sosdate),
+        by = groupbyvars
+      ) %>%
+        mutate(
+          !!name2 := tidyr::replace_na(!!sym(name2), 0),
+          !!name2 := ifelse(!is.na(!!sosdate) & !!sosdate - allowedcenslimit > !!censdate, 0,
+            # allow sosdate to be x days after censdate
+            # (to fix that pats that have date of discharge AFTER
+            # date of death are still counted as an event)
+            !!sym(name2)
+          ),
+          !!timename2 := as.numeric(pmin(!!sosdate, !!censdate, na.rm = TRUE)
+          - !!indexdate)
+        ) %>%
+        select(-!!sosdate)
+    }
+  }
+
+  if (noof) {
+    if (type == "com") {
+      tmp_data <- tmp_data %>%
+        filter(!!(sym(name2)) == 1) %>%
+        group_by(!!!syms(groupbyvars)) %>%
+        count(name = name2) %>%
+        ungroup()
+    }
+    if (type == "out") {
+      tmp_data <- left_join(cohortdata,
+        tmp_data,
+        by = groupbyvars
+      ) %>%
+        filter(!!(sym(name2)) == 1 &
+          (!is.na(!!sosdate) & !!sosdate + allowedcenslimit <= !!censdate)) %>%
+        group_by(!!!syms(groupbyvars)) %>%
+        count(name = name2) %>%
+        ungroup()
+    }
     out_data <- left_join(
       cohortdata,
       tmp_data %>% dplyr::select(!!!syms(groupbyvars), !!name2),
@@ -262,36 +314,16 @@ create_sosvar <- function(sosdata,
     ) %>%
       mutate(!!name2 := tidyr::replace_na(!!sym(name2), 0))
   }
-
-  if (type == "out") {
-    out_data <- left_join(
-      cohortdata,
-      tmp_data %>% dplyr::select(!!!syms(groupbyvars), !!name2, !!sosdate),
-      by = groupbyvars
-    ) %>%
-      mutate(
-        !!name2 := tidyr::replace_na(!!sym(name2), 0),
-        !!name2 := ifelse(!is.na(!!sosdate) & !!sosdate - allowedcenslimit > !!censdate, 0,
-                          # allow sosdate to be x days after censdate
-                          # (to fix that pats that have date of discharge AFTER
-                          # date of death are still counted as an event)
-          !!sym(name2)
-        ),
-        !!timename2 := as.numeric(pmin(!!sosdate, !!censdate, na.rm = TRUE)
-        - !!indexdate)
-      ) %>%
-      select(-!!sosdate)
-  }
-
-  if (valsclass %in% c("char", "fac")){
+  if (valsclass %in% c("char", "fac")) {
     out_data <- out_data %>%
-      mutate(!!name2 := case_when(!!sym(name2) == 1 ~ "yes",
-                                  TRUE ~ "no"))
-    if (valsclass == "fac"){
+      mutate(!!name2 := case_when(
+        !!sym(name2) == 1 ~ "yes",
+        TRUE ~ "no"
+      ))
+    if (valsclass == "fac") {
       out_data <- out_data %>%
         mutate(!!name2 := factor(!!sym(name2)))
     }
-
   }
 
   # create meta data to print in table in statistical report

@@ -30,3 +30,7 @@ a character or factor variable.
 
 * added restriction that death cannot occur after censdate in create_deathvar 
 * [] not shown in metaout for create_deathvar
+
+# hfmisc 0.0.7
+
+* added option (noof = TRUE) that calculates number of comorbs/outcomes
