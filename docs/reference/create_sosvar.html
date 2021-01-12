@@ -6,27 +6,31 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculates comobidites and outcomes from SoS data — create_sosvar • hfmisc</title>
+<title>Calculates comorbidities and outcomes from SoS data — create_sosvar • hfmisc</title>
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -35,11 +39,10 @@
 
 
 
-<meta property="og:title" content="Calculates comobidites and outcomes from SoS data — create_sosvar" />
+<meta property="og:title" content="Calculates comorbidities and outcomes from SoS data — create_sosvar" />
 <meta property="og:description" content="
-Calculates comobidites and outcomes (including time to for the latter)
+Calculates comorbidities and outcomes (including time to for the latter)
 from DIA, OP and ekod variables from National Patient Registry." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -57,7 +60,7 @@ from DIA, OP and ekod variables from National Patient Registry." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -71,7 +74,7 @@ from DIA, OP and ekod variables from National Patient Registry." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hfmisc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.9</span>
       </span>
     </div>
 
@@ -79,7 +82,7 @@ from DIA, OP and ekod variables from National Patient Registry." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -92,8 +95,8 @@ from DIA, OP and ekod variables from National Patient Registry." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/linabe/hfmisc">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/linabe/hfmisc/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -110,23 +113,42 @@ from DIA, OP and ekod variables from National Patient Registry." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculates comobidites and outcomes from SoS data</h1>
+    <h1>Calculates comorbidities and outcomes from SoS data</h1>
     <small class="dont-index">Source: <a href='https://github.com/linabe/hfmisc/blob/master/R/create_sosvar.R'><code>R/create_sosvar.R</code></a></small>
     <div class="hidden name"><code>create_sosvar.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
-<p>Calculates comobidites and outcomes (including time to for the latter)
+<p>Calculates comorbidities and outcomes (including time to for the latter)
 from DIA, OP and ekod variables from National Patient Registry.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_sosvar</span>(<span class='no'>sosdata</span>, <span class='no'>cohortdata</span>, <span class='kw'>patid</span> <span class='kw'>=</span> <span class='no'>lopnr</span>, <span class='kw'>indexdate</span> <span class='kw'>=</span> <span class='no'>indexdtm</span>,
-  <span class='no'>add_unique</span>, <span class='kw'>sosdate</span> <span class='kw'>=</span> <span class='no'>sosdtm</span>, <span class='no'>censdate</span>, <span class='kw'>allowedcenslimit</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>noof</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>type</span>, <span class='no'>name</span>, <span class='kw'>starttime</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>type</span> <span class='kw'>==</span> <span class='st'>"com"</span>, <span class='fl'>0</span>, <span class='fl'>1</span>),
-  <span class='no'>stoptime</span>, <span class='no'>diakod</span>, <span class='no'>opkod</span>, <span class='no'>ekod</span>, <span class='kw'>diavar</span> <span class='kw'>=</span> <span class='no'>DIA_all</span>, <span class='kw'>opvar</span> <span class='kw'>=</span> <span class='no'>OP_all</span>,
-  <span class='kw'>evar</span> <span class='kw'>=</span> <span class='no'>ekod_all</span>, <span class='kw'>valsclass</span> <span class='kw'>=</span> <span class='st'>"num"</span>, <span class='kw'>meta_reg</span> <span class='kw'>=</span> <span class='st'>"NPR (in+out)"</span>,
-  <span class='no'>meta_pos</span>, <span class='kw'>warnings</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>create_sosvar</span><span class='op'>(</span>
+  <span class='va'>sosdata</span>,
+  <span class='va'>cohortdata</span>,
+  patid <span class='op'>=</span> <span class='va'>lopnr</span>,
+  indexdate <span class='op'>=</span> <span class='va'>indexdtm</span>,
+  <span class='va'>add_unique</span>,
+  sosdate <span class='op'>=</span> <span class='va'>sosdtm</span>,
+  <span class='va'>censdate</span>,
+  allowedcenslimit <span class='op'>=</span> <span class='fl'>0</span>,
+  noof <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>type</span>,
+  <span class='va'>name</span>,
+  starttime <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>type</span> <span class='op'>==</span> <span class='st'>"com"</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  <span class='va'>stoptime</span>,
+  <span class='va'>diakod</span>,
+  <span class='va'>opkod</span>,
+  <span class='va'>ekod</span>,
+  diavar <span class='op'>=</span> <span class='va'>DIA_all</span>,
+  opvar <span class='op'>=</span> <span class='va'>OP_all</span>,
+  evar <span class='op'>=</span> <span class='va'>ekod_all</span>,
+  valsclass <span class='op'>=</span> <span class='st'>"num"</span>,
+  meta_reg <span class='op'>=</span> <span class='st'>"NPR (in+out)"</span>,
+  <span class='va'>meta_pos</span>,
+  warnings <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,14 +183,14 @@ in sosdata. Default is sosdtm.</p></td>
     </tr>
     <tr>
       <th>censdate</th>
-      <td><p>Vector of dates. Only applicaple for type = "out". Outcomes are
+      <td><p>Vector of dates. Only applicable for type = "out". Outcomes are
 allowed up until this day (usually date of death or end follow-up).</p></td>
     </tr>
     <tr>
       <th>allowedcenslimit</th>
       <td><p>Optional single value with allowed time unit between
 sosdate and censdate that still makes the sosdate be a valid event.
-Used for example when patients who are discharded day after death
+Used for example when patients who are discharged day after death
 should still be counted as an event.
 Can cause unexpected results if the sos_data contains information &gt; than
 last follow-up.</p></td>
@@ -192,14 +214,15 @@ or comorbidity?</p></td>
     <tr>
       <th>starttime</th>
       <td><p>If type = "out" amount of time (in days) AFTER indexdate
-to start counted as outcome. If type = "com" amount of time (in days)
-PRIOR to indexdate to . Indexdate = 0, all values prior to
+to start counting outcomes. If type = "com" amount of time (in days)
+PRIOR to indexdate. Indexdate = 0, all values prior to
 indexdate are negative. Default is 1 ("out") and 0 ("com").</p></td>
     </tr>
     <tr>
       <th>stoptime</th>
       <td><p>If type = "out" amount of time (in days) AFTER indexdate to
-be counted. If type = "com" amount of time (in days) PRIOR to indexdate.
+be counted. Note that censdate will be adjusted to stoptime.
+If type = "com" amount of time (in days) PRIOR to indexdate.
 Indexdate = 0, all values prior to indexdate are negative.
 Default is any time prior to starttime is considered a comorbidity
 and any time after starttime is considered an outcome.</p></td>
@@ -273,30 +296,26 @@ with information on constructed variables.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>sos_data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='prep_sosdata.html'>prep_sosdata</a></span>(<span class='no'>sos_data</span>)
+<span class='va'>sos_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='prep_sosdata.html'>prep_sosdata</a></span><span class='op'>(</span><span class='va'>sos_data</span><span class='op'>)</span>
 
-<span class='no'>rs_data</span> <span class='kw'>&lt;-</span> <span class='fu'>create_sosvar</span>(
-  <span class='kw'>sosdata</span> <span class='kw'>=</span> <span class='no'>sos_data</span>,
-  <span class='kw'>cohortdata</span> <span class='kw'>=</span> <span class='no'>rs_data</span>,
-  <span class='kw'>patid</span> <span class='kw'>=</span> <span class='no'>id</span>,
-  <span class='kw'>indexdate</span> <span class='kw'>=</span> <span class='no'>indexdtm</span>,
-  <span class='kw'>sosdate</span> <span class='kw'>=</span> <span class='no'>sosdtm</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"com"</span>,
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"cv1y"</span>,
-  <span class='kw'>diakod</span> <span class='kw'>=</span> <span class='st'>" I"</span>,
-  <span class='kw'>stoptime</span> <span class='kw'>=</span> -<span class='fl'>365.25</span>,
-  <span class='kw'>warnings</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</div></pre>
+<span class='va'>rs_data</span> <span class='op'>&lt;-</span> <span class='fu'>create_sosvar</span><span class='op'>(</span>
+  sosdata <span class='op'>=</span> <span class='va'>sos_data</span>,
+  cohortdata <span class='op'>=</span> <span class='va'>rs_data</span>,
+  patid <span class='op'>=</span> <span class='va'>id</span>,
+  indexdate <span class='op'>=</span> <span class='va'>indexdtm</span>,
+  sosdate <span class='op'>=</span> <span class='va'>sosdtm</span>,
+  type <span class='op'>=</span> <span class='st'>"com"</span>,
+  name <span class='op'>=</span> <span class='st'>"cv1y"</span>,
+  diakod <span class='op'>=</span> <span class='st'>" I"</span>,
+  stoptime <span class='op'>=</span> <span class='op'>-</span><span class='fl'>365.25</span>,
+  warnings <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -307,7 +326,7 @@ with information on constructed variables.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

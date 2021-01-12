@@ -4,12 +4,14 @@
 \name{dors_data}
 \alias{dors_data}
 \title{Data from Cause of Death Registry}
-\format{A data frame with 100 rows and 3 variables:
+\format{
+A data frame with 100 rows and 3 variables:
 \describe{
 \item{id}{Patient id. Not unique. Integer.}
 \item{ULORSAK}{Underlaying cause of death}
 \item{DODSDAT}{Date of death}
-}}
+}
+}
 \usage{
 dors_data
 }

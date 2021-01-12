@@ -34,3 +34,11 @@ a character or factor variable.
 # hfmisc 0.0.7
 
 * added option (noof = TRUE) that calculates number of comorbs/outcomes
+
+# hfmisc 0.0.8
+
+* update to R v 4
+
+# hfmisc 0.0.9
+
+* sos_outtime_xx is calculated in accordance with starttime and stoptime

@@ -2,14 +2,33 @@
 % Please edit documentation in R/create_sosvar.R
 \name{create_sosvar}
 \alias{create_sosvar}
-\title{Calculates comobidites and outcomes from SoS data}
+\title{Calculates comorbidities and outcomes from SoS data}
 \usage{
-create_sosvar(sosdata, cohortdata, patid = lopnr, indexdate = indexdtm,
-  add_unique, sosdate = sosdtm, censdate, allowedcenslimit = 0,
-  noof = FALSE, type, name, starttime = ifelse(type == "com", 0, 1),
-  stoptime, diakod, opkod, ekod, diavar = DIA_all, opvar = OP_all,
-  evar = ekod_all, valsclass = "num", meta_reg = "NPR (in+out)",
-  meta_pos, warnings = TRUE)
+create_sosvar(
+  sosdata,
+  cohortdata,
+  patid = lopnr,
+  indexdate = indexdtm,
+  add_unique,
+  sosdate = sosdtm,
+  censdate,
+  allowedcenslimit = 0,
+  noof = FALSE,
+  type,
+  name,
+  starttime = ifelse(type == "com", 0, 1),
+  stoptime,
+  diakod,
+  opkod,
+  ekod,
+  diavar = DIA_all,
+  opvar = OP_all,
+  evar = ekod_all,
+  valsclass = "num",
+  meta_reg = "NPR (in+out)",
+  meta_pos,
+  warnings = TRUE
+)
 }
 \arguments{
 \item{sosdata}{Data where DIA, OP, Ekod variables are found.}
@@ -28,12 +47,12 @@ identifies unique posts.}
 \item{sosdate}{Date of incident (comorbidity or outcome)
 in sosdata. Default is sosdtm.}
 
-\item{censdate}{Vector of dates. Only applicaple for type = "out". Outcomes are
+\item{censdate}{Vector of dates. Only applicable for type = "out". Outcomes are
 allowed up until this day (usually date of death or end follow-up).}
 
 \item{allowedcenslimit}{Optional single value with allowed time unit between
 sosdate and censdate that still makes the sosdate be a valid event.
-Used for example when patients who are discharded day after death
+Used for example when patients who are discharged day after death
 should still be counted as an event.
 Can cause unexpected results if the sos_data contains information > than
 last follow-up.}
@@ -49,12 +68,13 @@ or comorbidity?}
 (prefix sos_out_ is added to outcome and sos_com_ to comorbidity).}
 
 \item{starttime}{If type = "out" amount of time (in days) AFTER indexdate
-to start counted as outcome. If type = "com" amount of time (in days)
-PRIOR to indexdate to . Indexdate = 0, all values prior to
+to start counting outcomes. If type = "com" amount of time (in days)
+PRIOR to indexdate. Indexdate = 0, all values prior to
 indexdate are negative. Default is 1 ("out") and 0 ("com").}
 
 \item{stoptime}{If type = "out" amount of time (in days) AFTER indexdate to
-be counted. If type = "com" amount of time (in days) PRIOR to indexdate.
+be counted. Note that censdate will be adjusted to stoptime.
+If type = "com" amount of time (in days) PRIOR to indexdate.
 Indexdate = 0, all values prior to indexdate are negative.
 Default is any time prior to starttime is considered a comorbidity
 and any time after starttime is considered an outcome.}
@@ -102,7 +122,7 @@ with information on constructed variables.
 \description{
 \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
 
-Calculates comobidites and outcomes (including time to for the latter)
+Calculates comorbidities and outcomes (including time to for the latter)
 from DIA, OP and ekod variables from National Patient Registry.
 }
 \examples{

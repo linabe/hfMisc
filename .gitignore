@@ -26,3 +26,4 @@ inst/internal
 # Package 
 renv/
 renv.lock
+docs
