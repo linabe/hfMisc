@@ -4,7 +4,8 @@
 \name{sos_data}
 \alias{sos_data}
 \title{Data from National Patient Registry}
-\format{A data frame with 5500 rows and 8 variables:
+\format{
+A data frame with 5500 rows and 8 variables:
 \describe{
 \item{id}{Patient id. Not unique. Integer.}
 \item{INDATUM}{Date of visit. Date.}
@@ -16,7 +17,8 @@
 \item{ekod1}{Character.}
 \item{ekod2}{Character.}
 \item{AR}{Year of visit date. Numeric.}
-}}
+}
+}
 \usage{
 sos_data
 }

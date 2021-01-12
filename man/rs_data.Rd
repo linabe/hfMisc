@@ -4,12 +4,14 @@
 \name{rs_data}
 \alias{rs_data}
 \title{Data from RiksSvikt (SwedeHF)}
-\format{A data frame with 500 rows and 3 variables:
+\format{
+A data frame with 500 rows and 3 variables:
 \describe{
 \item{id}{Patient id. Not unique. Integer.}
 \item{indexdtm}{Index date. Combination id and date is unique. Date.}
 \item{deathdtm}{Date of death or 2015-12-31 (censored). Date.}
-}}
+}
+}
 \usage{
 rs_data
 }

@@ -3,7 +3,7 @@
 #' @description
 #' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
 #'
-#' Prepares raw data recieved from Socialstyrelsen (national patient registry or
+#' Prepares raw data received from Socialstyrelsen (national patient registry or
 #'   cause of death registry) to be processed by function make_sosvar. Removes
 #'   post with missing information on relevant dates and joins diagnosis columns
 #'   together. Reason for preparation is to save space in

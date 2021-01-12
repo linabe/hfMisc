@@ -1,9 +1,9 @@
-#' Calculates comobidites and outcomes from SoS data
+#' Calculates comorbidities and outcomes from SoS data
 #'
 #' @description
 #' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
 #'
-#' Calculates comobidites and outcomes (including time to for the latter)
+#' Calculates comorbidities and outcomes (including time to for the latter)
 #'   from DIA, OP and ekod variables from National Patient Registry.
 #'
 #'
@@ -17,11 +17,11 @@
 #'   identifies unique posts.
 #' @param sosdate Date of incident (comorbidity or outcome)
 #'   in sosdata. Default is sosdtm.
-#' @param censdate Vector of dates. Only applicaple for type = "out". Outcomes are
+#' @param censdate Vector of dates. Only applicable for type = "out". Outcomes are
 #'   allowed up until this day (usually date of death or end follow-up).
 #' @param allowedcenslimit Optional single value with allowed time unit between
 #'   sosdate and censdate that still makes the sosdate be a valid event.
-#'   Used for example when patients who are discharded day after death
+#'   Used for example when patients who are discharged day after death
 #'   should still be counted as an event.
 #'   Can cause unexpected results if the sos_data contains information > than
 #'   last follow-up.
@@ -33,11 +33,12 @@
 #' @param name Name of resulting variable
 #'   (prefix sos_out_ is added to outcome and sos_com_ to comorbidity).
 #' @param starttime If type = "out" amount of time (in days) AFTER indexdate
-#'   to start counted as outcome. If type = "com" amount of time (in days)
-#'   PRIOR to indexdate to . Indexdate = 0, all values prior to
+#'   to start counting outcomes. If type = "com" amount of time (in days)
+#'   PRIOR to indexdate. Indexdate = 0, all values prior to
 #'   indexdate are negative. Default is 1 ("out") and 0 ("com").
 #' @param stoptime If type = "out" amount of time (in days) AFTER indexdate to
-#'   be counted. If type = "com" amount of time (in days) PRIOR to indexdate.
+#'   be counted. Note that censdate will be adjusted to stoptime.
+#'   If type = "com" amount of time (in days) PRIOR to indexdate.
 #'   Indexdate = 0, all values prior to indexdate are negative.
 #'   Default is any time prior to starttime is considered a comorbidity
 #'   and any time after starttime is considered an outcome.
@@ -272,19 +273,28 @@ create_sosvar <- function(sosdata,
         cohortdata,
         tmp_data %>% dplyr::select(!!!syms(groupbyvars), !!name2, !!sosdate),
         by = groupbyvars
-      ) %>%
+      )
+
+      if (!missing(stoptime)){
+        out_data <- out_data %>%
+          mutate(tmp_censdate = pmin(!!indexdate + stoptime, !!censdate, na.rm = TRUE))
+      } else{
+        out_data <- out_data %>%
+          mutate(tmp_censdate = !!censdate)
+      }
+
+      out_data <- out_data %>%
         mutate(
           !!name2 := tidyr::replace_na(!!sym(name2), 0),
-          !!name2 := ifelse(!is.na(!!sosdate) & !!sosdate - allowedcenslimit > !!censdate, 0,
+          !!name2 := ifelse(!is.na(!!sosdate) & !!sosdate - allowedcenslimit > tmp_censdate, 0,
             # allow sosdate to be x days after censdate
             # (to fix that pats that have date of discharge AFTER
             # date of death are still counted as an event)
             !!sym(name2)
           ),
-          !!timename2 := as.numeric(pmin(!!sosdate, !!censdate, na.rm = TRUE)
-          - !!indexdate)
+          !!timename2 := as.numeric(pmin(!!sosdate, tmp_censdate, na.rm = TRUE) - !!indexdate) + 1 - starttime
         ) %>%
-        select(-!!sosdate)
+        select(-!!sosdate, -tmp_censdate)
     }
   }
 
@@ -300,9 +310,19 @@ create_sosvar <- function(sosdata,
       tmp_data <- left_join(cohortdata,
         tmp_data,
         by = groupbyvars
-      ) %>%
+      )
+
+      if (!missing(stoptime)){
+        tmp_data <- tmp_data %>%
+          mutate(tmp_censdate = pmin(!!indexdate + stoptime, !!censdate, na.rm = TRUE))
+      } else{
+        tmp_data <- tmp_data %>%
+          mutate(tmp_censdate = !!censdate)
+      }
+
+      tmp_data <- tmp_data %>%
         filter(!!(sym(name2)) == 1 &
-          (!is.na(!!sosdate) & !!sosdate + allowedcenslimit <= !!censdate)) %>%
+          (!is.na(!!sosdate) & !!sosdate + allowedcenslimit <= tmp_censdate)) %>%
         group_by(!!!syms(groupbyvars)) %>%
         count(name = name2) %>%
         ungroup()

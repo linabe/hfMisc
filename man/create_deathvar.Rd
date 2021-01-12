@@ -4,10 +4,20 @@
 \alias{create_deathvar}
 \title{Calculates death from SoS data}
 \usage{
-create_deathvar(cohortdata, indexdate, deathdate, censdate,
-  calctimetodeath = FALSE, name, orsakkod, orsakvar = ULORSAK,
-  valsclass = "num", meta_reg = "Cause of Death", meta_pos,
-  warnings = TRUE)
+create_deathvar(
+  cohortdata,
+  indexdate,
+  deathdate,
+  censdate,
+  calctimetodeath = FALSE,
+  name,
+  orsakkod,
+  orsakvar = ULORSAK,
+  valsclass = "num",
+  meta_reg = "Cause of Death",
+  meta_pos,
+  warnings = TRUE
+)
 }
 \arguments{
 \item{cohortdata}{Data containing the cohort.}
