@@ -1,5 +1,5 @@
 
-sos_data_test <- prep_sosdata(sos_data, utdatum = TRUE)
+sos_data_test <- prep_sosdata(sos_data, utdatum = TRUE, evar = "ekod")
 
 expect_error(
   create_sosvar(

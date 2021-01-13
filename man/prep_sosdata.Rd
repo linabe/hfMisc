@@ -9,7 +9,12 @@ prep_sosdata(
   registry = "patreg",
   utdatum = FALSE,
   remove = TRUE,
-  impute = TRUE
+  impute = TRUE,
+  diavar = c("HDIA", "DIA"),
+  opvar = "OP",
+  evar = "EKOD",
+  orsakvar = c("ULORSAK", "MORSAK"),
+  mainvar = ifelse(registry == "patreg", "HDIA", "ULORSAK")
 )
 }
 \arguments{
@@ -28,8 +33,19 @@ Else date of admission is used.}
 be removed after constructing combined variable (to save space)?
 Default is TRUE.}
 
-\item{impute}{To be implemented. kom ihåg att kolla om finns värden i INDATUMA
+\item{impute}{If patreg = "dors" imputes missing month and date in DODSDAT.
+Possibly to be implemented in patreg. kom ihåg att kolla om finns värden i INDATUMA
 (text) men inte i INDATUM (numerisk). i så fall imputera.}
+
+\item{diavar}{The starting characters of variables containing diagnosis (used if registry = patreg).}
+
+\item{opvar}{The starting characters of variables containing operations (used if registry = patreg).}
+
+\item{evar}{The starting characters of variables containing ekod (used if registry = patreg).}
+
+\item{orsakvar}{The starting characters of variables containing causes of death (used if registry = dors).}
+
+\item{mainvar}{The main variable that should be saved in the data even if remove = TRUE.}
 }
 \value{
 sosdataset with combined DIA, OP, ekod variables and space
@@ -54,7 +70,8 @@ sos_data <- bind_rows(
   dagkir \%>\% mutate(source = "DK")
 )
 }
-sos_data <- prep_sosdata(sos_data)
+sos_data <- prep_sosdata(sos_data, evar = "ekod")
+dors_data <- prep_sosdata(dors_data, registry = "dors", impute = FALSE)
 }
 \seealso{
 \code{\link{create_sosvar}}

@@ -42,3 +42,11 @@ a character or factor variable.
 # hfmisc 0.0.9
 
 * sos_outtime_xx is calculated in accordance with starttime and stoptime
+
+# hfmisc 0.0.10
+
+* added function read_sasdata
+* capital letter for Yes/No in create_sosvar/create_deathvar
+* optional names for dia, op, ekod variables in prep_sosdata
+* fix bug renaming HDIA/ULORSAK if remove = FALSE in prep_sosdata
+* added imputation of DODSDAT in prep_sosdata 

@@ -69,7 +69,7 @@ from codes in the Cause of Death Registry.
 }
 \examples{
 
-dors_data <- prep_sosdata(dors_data, registry = "dors")
+dors_data <- prep_sosdata(dors_data, registry = "dors", impute = FALSE)
 rs_data <- dplyr::left_join(rs_data, dors_data, by = "id")
 
 rs_data <- create_deathvar(

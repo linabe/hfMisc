@@ -1,6 +1,6 @@
 Package: hfmisc
 Title: Miscellaneous functions created mainly for use in RiksSvikt (SwedeHF)
-Version: 0.0.9
+Version: 0.0.10
 Authors@R: 
     person(
         given = "Lina", 
@@ -20,7 +20,8 @@ Imports:
     stringi,
     rlang,
     stringr,
-    lifecycle 
+    lifecycle,
+    haven
 Suggests:
     scales,
     testthat,

@@ -78,7 +78,7 @@ usethis::use_lifecycle_badge(&quot;stable&quot;)" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hfmisc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.10</span>
       </span>
     </div>
 
@@ -137,7 +137,12 @@ usethis::use_lifecycle_badge("stable")</p>
   registry <span class='op'>=</span> <span class='st'>"patreg"</span>,
   utdatum <span class='op'>=</span> <span class='cn'>FALSE</span>,
   remove <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  impute <span class='op'>=</span> <span class='cn'>TRUE</span>
+  impute <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  diavar <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"HDIA"</span>, <span class='st'>"DIA"</span><span class='op'>)</span>,
+  opvar <span class='op'>=</span> <span class='st'>"OP"</span>,
+  evar <span class='op'>=</span> <span class='st'>"EKOD"</span>,
+  orsakvar <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ULORSAK"</span>, <span class='st'>"MORSAK"</span><span class='op'>)</span>,
+  mainvar <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>registry</span> <span class='op'>==</span> <span class='st'>"patreg"</span>, <span class='st'>"HDIA"</span>, <span class='st'>"ULORSAK"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -168,8 +173,29 @@ Default is TRUE.</p></td>
     </tr>
     <tr>
       <th>impute</th>
-      <td><p>To be implemented. kom ihåg att kolla om finns värden i INDATUMA
+      <td><p>If patreg = "dors" imputes missing month and date in DODSDAT.
+Possibly to be implemented in patreg. kom ihåg att kolla om finns värden i INDATUMA
 (text) men inte i INDATUM (numerisk). i så fall imputera.</p></td>
+    </tr>
+    <tr>
+      <th>diavar</th>
+      <td><p>The starting characters of variables containing diagnosis (used if registry = patreg).</p></td>
+    </tr>
+    <tr>
+      <th>opvar</th>
+      <td><p>The starting characters of variables containing operations (used if registry = patreg).</p></td>
+    </tr>
+    <tr>
+      <th>evar</th>
+      <td><p>The starting characters of variables containing ekod (used if registry = patreg).</p></td>
+    </tr>
+    <tr>
+      <th>orsakvar</th>
+      <td><p>The starting characters of variables containing causes of death (used if registry = dors).</p></td>
+    </tr>
+    <tr>
+      <th>mainvar</th>
+      <td><p>The main variable that should be saved in the data even if remove = TRUE.</p></td>
     </tr>
     </table>
 
@@ -190,7 +216,8 @@ in front of HDIA and sosdtm.</p>
   <span class='va'>dagkir</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>source <span class='op'>=</span> <span class='st'>"DK"</span><span class='op'>)</span>
 <span class='op'>)</span>
 <span class='op'>}</span>
-<span class='va'>sos_data</span> <span class='op'>&lt;-</span> <span class='fu'>prep_sosdata</span><span class='op'>(</span><span class='va'>sos_data</span><span class='op'>)</span>
+<span class='va'>sos_data</span> <span class='op'>&lt;-</span> <span class='fu'>prep_sosdata</span><span class='op'>(</span><span class='va'>sos_data</span>, evar <span class='op'>=</span> <span class='st'>"ekod"</span><span class='op'>)</span>
+<span class='va'>dors_data</span> <span class='op'>&lt;-</span> <span class='fu'>prep_sosdata</span><span class='op'>(</span><span class='va'>dors_data</span>, registry <span class='op'>=</span> <span class='st'>"dors"</span>, impute <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

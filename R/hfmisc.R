@@ -16,5 +16,6 @@ utils::globalVariables(c(
   "AR", "DIA_all", "DODSDAT", "HDIA", "INDATUM",
   "OP_all", "ORSAK_all", "ULORSAK", "UTDATUM",
   "ekod_all", "sosdtm", "tmp_H", "tmp_U",
-  "difft", "indexdtm", "lopnr", "metaout", "."
+  "difft", "indexdtm", "lopnr", "metaout", ".",
+  "tmp_censdate", "tmp_mainvar"
 ))

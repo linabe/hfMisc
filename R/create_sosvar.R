@@ -78,7 +78,7 @@
 #'
 #' @examples
 #'
-#' sos_data <- prep_sosdata(sos_data)
+#' sos_data <- prep_sosdata(sos_data, evar = "ekod")
 #'
 #' rs_data <- create_sosvar(
 #'   sosdata = sos_data,
@@ -337,8 +337,8 @@ create_sosvar <- function(sosdata,
   if (valsclass %in% c("char", "fac")) {
     out_data <- out_data %>%
       mutate(!!name2 := case_when(
-        !!sym(name2) == 1 ~ "yes",
-        TRUE ~ "no"
+        !!sym(name2) == 1 ~ "Yes",
+        TRUE ~ "No"
       ))
     if (valsclass == "fac") {
       out_data <- out_data %>%

@@ -127,7 +127,7 @@ from DIA, OP and ekod variables from National Patient Registry.
 }
 \examples{
 
-sos_data <- prep_sosdata(sos_data)
+sos_data <- prep_sosdata(sos_data, evar = "ekod")
 
 rs_data <- create_sosvar(
   sosdata = sos_data,

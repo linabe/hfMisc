@@ -42,7 +42,7 @@
 #'
 #' @examples
 #'
-#' dors_data <- prep_sosdata(dors_data, registry = "dors")
+#' dors_data <- prep_sosdata(dors_data, registry = "dors", impute = FALSE)
 #' rs_data <- dplyr::left_join(rs_data, dors_data, by = "id")
 #'
 #' rs_data <- create_deathvar(
@@ -120,8 +120,8 @@ create_deathvar <- function(cohortdata,
   if (valsclass %in% c("char", "fac")) {
     out_data <- out_data %>%
       mutate(!!name2 := case_when(
-        !!sym(name2) == 1 ~ "yes",
-        TRUE ~ "no"
+        !!sym(name2) == 1 ~ "Yes",
+        TRUE ~ "No"
       ))
     if (valsclass == "fac") {
       out_data <- out_data %>%

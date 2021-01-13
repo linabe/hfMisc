@@ -1,4 +1,4 @@
-dors_data <- prep_sosdata(dors_data, registry = "dors")
+dors_data <- prep_sosdata(dors_data, registry = "dors", impute = FALSE)
 rs_data <- left_join(rs_data, dors_data, by = "id") %>%
   mutate(censdtm = pmin(lubridate::ymd("2015-11-30"), deathdtm))
 
@@ -17,7 +17,7 @@ rs_data_test <- create_deathvar(
   valsclass = "fac"
 )
 
-expect_that(sum(rs_data_test$sos_out_deathcvfac == "yes"), equals(145))
+expect_that(sum(rs_data_test$sos_out_deathcvfac == "Yes"), equals(145))
 
 
 rs_data_test <- create_deathvar(
