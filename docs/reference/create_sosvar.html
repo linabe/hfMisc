@@ -74,7 +74,7 @@ from DIA, OP and ekod variables from National Patient Registry." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hfmisc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.11</span>
       </span>
     </div>
 
@@ -141,6 +141,9 @@ from DIA, OP and ekod variables from National Patient Registry.</p>
   <span class='va'>diakod</span>,
   <span class='va'>opkod</span>,
   <span class='va'>ekod</span>,
+  diakodneg <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  opkodneg <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  ekodneg <span class='op'>=</span> <span class='cn'>FALSE</span>,
   diavar <span class='op'>=</span> <span class='va'>DIA_all</span>,
   opvar <span class='op'>=</span> <span class='va'>OP_all</span>,
   evar <span class='op'>=</span> <span class='va'>ekod_all</span>,
@@ -231,19 +234,31 @@ and any time after starttime is considered an outcome.</p></td>
       <th>diakod</th>
       <td><p>String of icd codes as a regular expression
 defining the outcome/comorbidity. Should start
-with blank space " ".</p></td>
+with blank space " ". Also see diakodneg.</p></td>
     </tr>
     <tr>
       <th>opkod</th>
       <td><p>String of procedure codes as a regular expression
 defining the outcome/comorbidity. Should start
-with blank space " ".</p></td>
+with blank space " ". Also see opkodneg.</p></td>
     </tr>
     <tr>
       <th>ekod</th>
       <td><p>String of e codes as a regular expression defining
 the outcome/comorbidity. Should start
-with blank space " ".</p></td>
+with blank space " ". Also see ekodneg.</p></td>
+    </tr>
+    <tr>
+      <th>diakodneg</th>
+      <td><p>Should return non-matching codes in diakod? Default is FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>opkodneg</th>
+      <td><p>Should return non-matching codes in opkod? Default is FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>ekodneg</th>
+      <td><p>Should return non-matching codes in ekod? Default is FALSE.</p></td>
     </tr>
     <tr>
       <th>diavar</th>

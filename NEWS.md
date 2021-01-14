@@ -50,3 +50,7 @@ a character or factor variable.
 * optional names for dia, op, ekod variables in prep_sosdata
 * fix bug renaming HDIA/ULORSAK if remove = FALSE in prep_sosdata
 * added imputation of DODSDAT in prep_sosdata 
+
+# hfmisc 0.0.11
+
+* added option to negate strings to search for in create_sosvar

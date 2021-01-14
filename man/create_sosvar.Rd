@@ -21,6 +21,9 @@ create_sosvar(
   diakod,
   opkod,
   ekod,
+  diakodneg = FALSE,
+  opkodneg = FALSE,
+  ekodneg = FALSE,
   diavar = DIA_all,
   opvar = OP_all,
   evar = ekod_all,
@@ -81,15 +84,21 @@ and any time after starttime is considered an outcome.}
 
 \item{diakod}{String of icd codes as a regular expression
 defining the outcome/comorbidity. Should start
-with blank space " ".}
+with blank space " ". Also see diakodneg.}
 
 \item{opkod}{String of procedure codes as a regular expression
 defining the outcome/comorbidity. Should start
-with blank space " ".}
+with blank space " ". Also see opkodneg.}
 
 \item{ekod}{String of e codes as a regular expression defining
 the outcome/comorbidity. Should start
-with blank space " ".}
+with blank space " ". Also see ekodneg.}
+
+\item{diakodneg}{Should return non-matching codes in diakod? Default is FALSE.}
+
+\item{opkodneg}{Should return non-matching codes in opkod? Default is FALSE.}
+
+\item{ekodneg}{Should return non-matching codes in ekod? Default is FALSE.}
 
 \item{diavar}{Column where diakod is found. All codes should start
 with blank space " ". Default is DIA_all.}

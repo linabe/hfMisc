@@ -44,13 +44,16 @@
 #'   and any time after starttime is considered an outcome.
 #' @param diakod String of icd codes as a regular expression
 #'   defining the outcome/comorbidity. Should start
-#'   with blank space " ".
+#'   with blank space " ". Also see diakodneg.
 #' @param opkod String of procedure codes as a regular expression
 #'   defining the outcome/comorbidity. Should start
-#'   with blank space " ".
+#'   with blank space " ". Also see opkodneg.
 #' @param ekod String of e codes as a regular expression defining
 #'   the outcome/comorbidity. Should start
-#'   with blank space " ".
+#'   with blank space " ". Also see ekodneg.
+#' @param diakodneg Should return non-matching codes in diakod? Default is FALSE.
+#' @param opkodneg Should return non-matching codes in opkod? Default is FALSE.
+#' @param ekodneg Should return non-matching codes in ekod? Default is FALSE.
 #' @param diavar Column where diakod is found. All codes should start
 #'   with blank space " ". Default is DIA_all.
 #' @param opvar Column where opkod is found. All codes should start
@@ -113,6 +116,9 @@ create_sosvar <- function(sosdata,
                           diakod,
                           opkod,
                           ekod,
+                          diakodneg = FALSE,
+                          opkodneg = FALSE,
+                          ekodneg = FALSE,
                           diavar = DIA_all,
                           opvar = OP_all,
                           evar = ekod_all,
@@ -235,15 +241,15 @@ create_sosvar <- function(sosdata,
 
   if (!missing(diakod)) {
     tmp_data <- tmp_data %>%
-      mutate(name_dia = stringr::str_detect(!!diavar, diakod))
+      mutate(name_dia = stringr::str_detect(!!diavar, diakod, negate = diakodneg))
   }
   if (!missing(opkod)) {
     tmp_data <- tmp_data %>%
-      mutate(name_op = stringr::str_detect(!!opvar, opkod))
+      mutate(name_op = stringr::str_detect(!!opvar, opkod, negate = opkodneg))
   }
   if (!missing(ekod)) {
     tmp_data <- tmp_data %>%
-      mutate(name_ekod = stringr::str_detect(!!evar, ekod))
+      mutate(name_ekod = stringr::str_detect(!!evar, ekod, negate = ekodneg))
   }
 
   tmp_data <- tmp_data %>%
@@ -358,13 +364,13 @@ create_sosvar <- function(sosdata,
 
   meta_kod <- paste(
     if (!missing(diakod)) {
-      paste0("ICD:", fixkod(diakod))
+      paste0("ICD:", ifelse(diakodneg, "Not ", ""), fixkod(diakod))
     },
     if (!missing(opkod)) {
-      paste0("OP:", fixkod(opkod))
+      paste0("OP:", ifelse(opkodneg, "Not ", ""), fixkod(opkod))
     },
     if (!missing(ekod)) {
-      paste0("Ekod:", fixkod(ekod))
+      paste0("Ekod:", ifelse(ekodneg, "Not ", ""), fixkod(ekod))
     }
   )
 

@@ -193,7 +193,21 @@ rs_data_test <- create_sosvar(
   name = "cv_HDIA",
   diakod = " I",
   diavar = HDIA,
-  stoptime,
+  censdate = deathdtm,
+  warning = FALSE
+)
+
+rs_data_test <- create_sosvar(
+  sosdata = sos_data_test,
+  cohortdata = rs_data_test,
+  patid = id,
+  indexdate = indexdtm,
+  sosdate = sosdtm,
+  type = "out",
+  name = "noncv",
+  diakod = " I",
+  diakodneg = TRUE,
+  diavar = HDIA,
   censdate = deathdtm,
   warning = FALSE
 )
@@ -206,6 +220,7 @@ expect_that(sum(rs_data_test$sos_out_cv_HDIA == 1), equals(201))
 
 expect_that(sum(rs_data_test$sos_outtime_cv), equals(124467))
 
+expect_that(sum(rs_data_test$sos_out_noncv == 1), equals(49))
 
 # number of
 
