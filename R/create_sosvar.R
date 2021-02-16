@@ -1,7 +1,7 @@
 #' Calculates comorbidities and outcomes from SoS data
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+#' `r lifecycle::badge("stable")`
 #'
 #' Calculates comorbidities and outcomes (including time to for the latter)
 #'   from DIA, OP and ekod variables from National Patient Registry.

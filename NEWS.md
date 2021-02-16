@@ -54,3 +54,7 @@ a character or factor variable.
 # hfmisc 0.0.11
 
 * added option to negate strings to search for in create_sosvar
+
+# hfmisc 0.0.12
+
+* added functions default_kable (default kable table from kableExtra) and fn (format numbers)

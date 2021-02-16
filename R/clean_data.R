@@ -1,7 +1,7 @@
 #' Clean data
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+#' `r lifecycle::badge("experimental")`
 #'
 #' Removes spaces and special characters from character column(s).
 #'

@@ -1,7 +1,7 @@
 #' Read sas data
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{lifecycle::badge("maturing")}
+#' `r lifecycle::badge("stable")`
 #'
 #' Read sas data, clean and remove labels and formats
 #'

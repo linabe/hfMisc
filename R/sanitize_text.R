@@ -1,5 +1,8 @@
 #' Sanitize text
 #'
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
 #' Sanitize text for compatability with latex. Used for example when
 #'  escape = FALSE needed in kableExtra table (with output latex),
 #'  for example when needing footnotes.

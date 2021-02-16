@@ -1,7 +1,7 @@
 #' Prepares SoS data for input into function create_sosvar
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+#' `r lifecycle::badge("stable")`
 #'
 #' Prepares raw data received from Socialstyrelsen (national patient registry or
 #'   cause of death registry) to be processed by function make_sosvar. Removes

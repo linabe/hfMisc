@@ -1,6 +1,6 @@
 Package: hfmisc
 Title: Miscellaneous functions created mainly for use in RiksSvikt (SwedeHF)
-Version: 0.0.11
+Version: 0.0.12
 Authors@R: 
     person(
         given = "Lina", 
@@ -13,6 +13,8 @@ Description:
 Depends: 
     R (>= 3.5)
 Imports: 
+    knitr,
+    kableExtra,
     purrr, 
     dplyr, 
     tidyr,
@@ -21,11 +23,11 @@ Imports:
     rlang,
     stringr,
     lifecycle,
-    haven
+    haven,
+    tibble
 Suggests:
     scales,
     testthat,
-    knitr,
     rmarkdown
 VignetteBuilder: knitr
 License: GPL-3
@@ -36,3 +38,4 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+RdMacros: lifecycle

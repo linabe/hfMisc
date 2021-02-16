@@ -62,7 +62,7 @@ Also dataset metaout that writes directly to global enviroment
 with information on constructed variables.
 }
 \description{
-\Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
 
 Calculates cause-specific death (and optionally time to death)
 from codes in the Cause of Death Registry.

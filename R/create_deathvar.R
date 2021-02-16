@@ -1,7 +1,7 @@
 #' Calculates death from SoS data
 #'
 #' @description
-#' \Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+#' `r lifecycle::badge("experimental")`
 #'
 #' Calculates cause-specific death (and optionally time to death)
 #'   from codes in the Cause of Death Registry.

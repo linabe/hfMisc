@@ -129,7 +129,7 @@ Also dataset metaout that writes directly to global enviroment
 with information on constructed variables.
 }
 \description{
-\Sexpr[results=rd, stage=render]{lifecycle::badge("experimental")}
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
 
 Calculates comorbidities and outcomes (including time to for the latter)
 from DIA, OP and ekod variables from National Patient Registry.
