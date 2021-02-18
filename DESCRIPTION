@@ -13,22 +13,21 @@ Description:
 Depends: 
     R (>= 3.5)
 Imports: 
-    knitr,
-    kableExtra,
     purrr, 
     dplyr, 
     tidyr,
     lubridate,
-    stringi,
     rlang,
     stringr,
     lifecycle,
     haven,
-    tibble
+    knitr,
+    kableExtra
 Suggests:
     scales,
     testthat,
-    rmarkdown
+    rmarkdown,
+    tibble
 VignetteBuilder: knitr
 License: GPL-3
 URL: https://github.com/linabe/hfmisc, 

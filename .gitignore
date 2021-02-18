@@ -23,7 +23,6 @@ inst/internal
 .Rprofile
 .Rbuildignore
 
-# Package 
+# Package
 renv/
 renv.lock
-docs

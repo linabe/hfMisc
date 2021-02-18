@@ -59,7 +59,6 @@ cause of death registry) to be processed by function make_sosvar. Removes
 post with missing information on relevant dates and joins diagnosis columns
 together. Reason for preparation is to save space in
 internal memory (by joining columns together) and removing surplus columns.
-usethis::use_lifecycle_badge("stable")
 }
 \examples{
 \dontrun{

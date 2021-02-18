@@ -5,7 +5,6 @@
 #' @author Lina Benson \email{lina.benson@ki.se}
 #' @docType package
 #' @name hfmisc
-#' @importFrom dplyr %>%
 "_PACKAGE"
 
 # Update this function call this should be done for tidyverse

@@ -51,7 +51,6 @@
 #'   orsakkod = " I"
 #' )
 #' @import dplyr
-#' @import rlang
 #'
 #' @export
 

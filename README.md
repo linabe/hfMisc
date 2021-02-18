@@ -10,7 +10,7 @@ Miscellaneous functions created mainly for use in RiksSvikt (SwedeHF)
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
+stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
 <!-- badges: end -->
 

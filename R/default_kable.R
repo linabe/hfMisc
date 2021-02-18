@@ -14,7 +14,6 @@
 #' @examples
 #' tab <- tibble::tibble(a = c(2, 3, 4), b = c(5, 6, 7))
 #' default_kable(tab)
-#' @import kableExtra
 #' @import dplyr
 #' @export
 

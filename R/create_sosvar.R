@@ -96,8 +96,6 @@
 #'   warnings = FALSE
 #' )
 #' @import dplyr
-#' @import rlang
-#'
 #' @export
 
 create_sosvar <- function(sosdata,
@@ -139,26 +137,26 @@ create_sosvar <- function(sosdata,
 
   # check input arguments ok
   if (!rlang::has_name(sosdata, rlang::as_name(patid))) {
-    stop(paste0(as_label(patid), " does not exist in sosdata"))
+    stop(paste0(rlang::as_label(patid), " does not exist in sosdata"))
   }
 
   if (!rlang::has_name(cohortdata, rlang::as_name(patid))) {
-    stop(paste0(as_label(patid), " does not exist in cohortdata"))
+    stop(paste0(rlang::as_label(patid), " does not exist in cohortdata"))
   }
 
   if (!rlang::has_name(cohortdata, rlang::as_name(indexdate))) {
-    stop(paste0(as_label(indexdate), " does not exist in cohortdata"))
+    stop(paste0(rlang::as_label(indexdate), " does not exist in cohortdata"))
   }
 
   if (!rlang::has_name(sosdata, rlang::as_name(sosdate))) {
-    stop(paste0(as_label(sosdate), " does not exist in sosdata"))
+    stop(paste0(rlang::as_label(sosdate), " does not exist in sosdata"))
   }
 
   if (any(rlang::has_name(sosdata, names(cohortdata)[!names(cohortdata) == rlang::as_name(patid)]))) {
     if (warnings) {
       warning(paste0(
         "cohortdata and sosdata have overlapping columns. Only ",
-        as_label(patid), " should be the same. This might cause unexpected results."
+        rlang::as_label(patid), " should be the same. This might cause unexpected results."
       ))
     }
   }
