@@ -74,7 +74,7 @@ from DIA, OP and ekod variables from National Patient Registry." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hfmisc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.13</span>
       </span>
     </div>
 
@@ -125,6 +125,8 @@ from DIA, OP and ekod variables from National Patient Registry.</p>
     </div>
 
     <pre class="usage"><span class='fu'>create_sosvar</span><span class='op'>(</span>
+  <span class='va'>type</span>,
+  <span class='va'>name</span>,
   <span class='va'>sosdata</span>,
   <span class='va'>cohortdata</span>,
   patid <span class='op'>=</span> <span class='va'>lopnr</span>,
@@ -134,8 +136,7 @@ from DIA, OP and ekod variables from National Patient Registry.</p>
   <span class='va'>censdate</span>,
   allowedcenslimit <span class='op'>=</span> <span class='fl'>0</span>,
   noof <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  <span class='va'>type</span>,
-  <span class='va'>name</span>,
+  comduration <span class='op'>=</span> <span class='cn'>FALSE</span>,
   starttime <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>type</span> <span class='op'>==</span> <span class='st'>"com"</span>, <span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>,
   <span class='va'>stoptime</span>,
   <span class='va'>diakod</span>,
@@ -156,6 +157,17 @@ from DIA, OP and ekod variables from National Patient Registry.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>type</th>
+      <td><p>Possible values are "out" and "com".
+Is the resulting variable an outcome (and time to is calculated)
+or comorbidity?</p></td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td><p>Name of resulting variable
+(prefix sos_out_ is added to outcome and sos_com_ to comorbidity).</p></td>
+    </tr>
     <tr>
       <th>sosdata</th>
       <td><p>Data where DIA, OP, Ekod variables are found.</p></td>
@@ -204,15 +216,8 @@ last follow-up.</p></td>
 No time to is calculated for noof = TRUE and type = "out".</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p>Possible values are "out" and "com".
-Is the resulting variable an outcome (and time to is calculated)
-or comorbidity?</p></td>
-    </tr>
-    <tr>
-      <th>name</th>
-      <td><p>Name of resulting variable
-(prefix sos_out_ is added to outcome and sos_com_ to comorbidity).</p></td>
+      <th>comduration</th>
+      <td><p>Should duration of the comorbidity be calculated (TRUE). Default is FALSE.</p></td>
     </tr>
     <tr>
       <th>starttime</th>

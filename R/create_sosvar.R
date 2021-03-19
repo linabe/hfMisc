@@ -7,6 +7,11 @@
 #'   from DIA, OP and ekod variables from National Patient Registry.
 #'
 #'
+#' @param type Possible values are "out" and "com".
+#'   Is the resulting variable an outcome (and time to is calculated)
+#'   or comorbidity?
+#' @param name Name of resulting variable
+#'   (prefix sos_out_ is added to outcome and sos_com_ to comorbidity).
 #' @param sosdata Data where DIA, OP, Ekod variables are found.
 #' @param cohortdata Data containing the cohort with at least columns
 #'   patid and indexdate.
@@ -27,11 +32,7 @@
 #'   last follow-up.
 #' @param noof Should comorbs/outcomes be number of or first? Default it first (FALSE).
 #'   No time to is calculated for noof = TRUE and type = "out".
-#' @param type Possible values are "out" and "com".
-#'   Is the resulting variable an outcome (and time to is calculated)
-#'   or comorbidity?
-#' @param name Name of resulting variable
-#'   (prefix sos_out_ is added to outcome and sos_com_ to comorbidity).
+#' @param comduration Should duration of the comorbidity be calculated (TRUE). Default is FALSE.
 #' @param starttime If type = "out" amount of time (in days) AFTER indexdate
 #'   to start counting outcomes. If type = "com" amount of time (in days)
 #'   PRIOR to indexdate. Indexdate = 0, all values prior to
@@ -98,7 +99,9 @@
 #' @import dplyr
 #' @export
 
-create_sosvar <- function(sosdata,
+create_sosvar <- function(type,
+                          name,
+                          sosdata,
                           cohortdata,
                           patid = lopnr,
                           indexdate = indexdtm,
@@ -107,8 +110,7 @@ create_sosvar <- function(sosdata,
                           censdate,
                           allowedcenslimit = 0,
                           noof = FALSE,
-                          type,
-                          name,
+                          comduration = FALSE,
                           starttime = ifelse(type == "com", 0, 1),
                           stoptime,
                           diakod,
@@ -175,6 +177,7 @@ create_sosvar <- function(sosdata,
 
   name2 <- paste0("sos_", type, "_", name)
   if (type == "out") timename2 <- paste0("sos_outtime_", name)
+  if (type == "com" & comduration) timename2 <- paste0("sos_comdur_", name)
 
   if (any(rlang::has_name(cohortdata, name2))) {
     if (warnings) {
@@ -194,6 +197,12 @@ create_sosvar <- function(sosdata,
     }
   }
 
+  if ((type == "out" | noof) & comduration) {
+    if (warnings) {
+      warning("comduration does not have an effect if type = out or noof = TRUE")
+    }
+  }
+
   if (!any(duplicated(cohortdata %>% select(!!patid)))) {
     groupbyvars <- rlang::as_name(patid)
   } else {
@@ -208,7 +217,7 @@ create_sosvar <- function(sosdata,
       }
     } else {
       if (!missing(add_unique)) {
-        groupbyvars <- c(rlang::as_name(patid), rlang::as_name(add_unique))
+        groupbyvars <- c(rlang::as_name(patid), rlang::as_name(indexdate), rlang::as_name(add_unique))
       } else {
         stop(paste0(
           rlang::as_name(patid), " and ", rlang::as_name(indexdate),
@@ -266,10 +275,18 @@ create_sosvar <- function(sosdata,
     if (type == "com") {
       out_data <- left_join(
         cohortdata,
-        tmp_data %>% dplyr::select(!!!syms(groupbyvars), !!name2),
+        tmp_data %>% dplyr::select(!!!syms(groupbyvars), !!name2, !!sosdate),
         by = groupbyvars
       ) %>%
         mutate(!!name2 := tidyr::replace_na(!!sym(name2), 0))
+
+      if (comduration) {
+        out_data <- out_data %>%
+          mutate(!!timename2 := as.numeric(!!indexdate + starttime - !!sosdate))
+      }
+
+      out_data <- out_data %>%
+        select(-!!sosdate)
     }
 
     if (type == "out") {
@@ -279,10 +296,10 @@ create_sosvar <- function(sosdata,
         by = groupbyvars
       )
 
-      if (!missing(stoptime)){
+      if (!missing(stoptime)) {
         out_data <- out_data %>%
           mutate(tmp_censdate = pmin(!!indexdate + stoptime, !!censdate, na.rm = TRUE))
-      } else{
+      } else {
         out_data <- out_data %>%
           mutate(tmp_censdate = !!censdate)
       }
@@ -296,8 +313,7 @@ create_sosvar <- function(sosdata,
             # date of death are still counted as an event)
             !!sym(name2)
           ),
-          !!timename2 := as.numeric(pmin(!!sosdate, tmp_censdate, na.rm = TRUE) - !!indexdate) + 1 - starttime
-        ) %>%
+          !!timename2 := as.numeric(pmin(!!sosdate, tmp_censdate, na.rm = TRUE) - !!indexdate) + 1 - starttime) %>%
         select(-!!sosdate, -tmp_censdate)
     }
   }
@@ -316,10 +332,10 @@ create_sosvar <- function(sosdata,
         by = groupbyvars
       )
 
-      if (!missing(stoptime)){
+      if (!missing(stoptime)) {
         tmp_data <- tmp_data %>%
           mutate(tmp_censdate = pmin(!!indexdate + stoptime, !!censdate, na.rm = TRUE))
-      } else{
+      } else {
         tmp_data <- tmp_data %>%
           mutate(tmp_censdate = !!censdate)
       }

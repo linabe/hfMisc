@@ -58,3 +58,7 @@ a character or factor variable.
 # hfmisc 0.0.12
 
 * added functions default_kable (default kable table from kableExtra) and fn (format numbers)
+
+# hfmisc 0.0.13
+
+* added option to calculate duration of comorbidity (comduration) in function create_sosvar

@@ -1,6 +1,6 @@
 Package: hfmisc
 Title: Miscellaneous functions created mainly for use in RiksSvikt (SwedeHF)
-Version: 0.0.12
+Version: 0.0.13
 Authors@R: 
     person(
         given = "Lina", 

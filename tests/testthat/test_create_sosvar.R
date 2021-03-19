@@ -282,3 +282,56 @@ rs_data_test <- create_sosvar(
 )
 
 expect_that(sum(rs_data_test$sos_out_repI_ss), equals(368))
+
+# test comduration
+
+rs_data_test <- create_sosvar(
+  sosdata = sos_data_test,
+  cohortdata = rs_data,
+  patid = id,
+  indexdate = indexdtm,
+  sosdate = sosdtm,
+  comduration = TRUE,
+  type = "com",
+  name = "r",
+  diakod = " R34",
+  diavar = DIA_all,
+  warning = FALSE,
+  starttime = 0
+)
+
+expect_that(sum(rs_data_test$sos_comdur_r, na.rm = TRUE), equals(1321844))
+
+rs_data_test <- create_sosvar(
+  sosdata = sos_data_test,
+  cohortdata = rs_data,
+  patid = id,
+  indexdate = indexdtm,
+  sosdate = sosdtm,
+  comduration = TRUE,
+  type = "com",
+  name = "r",
+  diakod = " R34",
+  diavar = DIA_all,
+  warning = FALSE,
+  starttime = -100
+)
+
+expect_that(sum(rs_data_test$sos_comdur_r, na.rm = TRUE), equals(1285178))
+
+rs_data_test <- create_sosvar(
+  sosdata = sos_data_test,
+  cohortdata = rs_data,
+  patid = id,
+  indexdate = indexdtm,
+  sosdate = sosdtm,
+  comduration = TRUE,
+  type = "com",
+  name = "r",
+  diakod = " R34",
+  diavar = DIA_all,
+  warning = FALSE,
+  stoptime = -500
+)
+
+expect_that(sum(rs_data_test$sos_comdur_r, na.rm = TRUE), equals(31013))

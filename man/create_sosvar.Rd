@@ -5,6 +5,8 @@
 \title{Calculates comorbidities and outcomes from SoS data}
 \usage{
 create_sosvar(
+  type,
+  name,
   sosdata,
   cohortdata,
   patid = lopnr,
@@ -14,8 +16,7 @@ create_sosvar(
   censdate,
   allowedcenslimit = 0,
   noof = FALSE,
-  type,
-  name,
+  comduration = FALSE,
   starttime = ifelse(type == "com", 0, 1),
   stoptime,
   diakod,
@@ -34,6 +35,13 @@ create_sosvar(
 )
 }
 \arguments{
+\item{type}{Possible values are "out" and "com".
+Is the resulting variable an outcome (and time to is calculated)
+or comorbidity?}
+
+\item{name}{Name of resulting variable
+(prefix sos_out_ is added to outcome and sos_com_ to comorbidity).}
+
 \item{sosdata}{Data where DIA, OP, Ekod variables are found.}
 
 \item{cohortdata}{Data containing the cohort with at least columns
@@ -63,12 +71,7 @@ last follow-up.}
 \item{noof}{Should comorbs/outcomes be number of or first? Default it first (FALSE).
 No time to is calculated for noof = TRUE and type = "out".}
 
-\item{type}{Possible values are "out" and "com".
-Is the resulting variable an outcome (and time to is calculated)
-or comorbidity?}
-
-\item{name}{Name of resulting variable
-(prefix sos_out_ is added to outcome and sos_com_ to comorbidity).}
+\item{comduration}{Should duration of the comorbidity be calculated (TRUE). Default is FALSE.}
 
 \item{starttime}{If type = "out" amount of time (in days) AFTER indexdate
 to start counting outcomes. If type = "com" amount of time (in days)
