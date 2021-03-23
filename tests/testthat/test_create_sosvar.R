@@ -335,3 +335,46 @@ rs_data_test <- create_sosvar(
 )
 
 expect_that(sum(rs_data_test$sos_comdur_r, na.rm = TRUE), equals(31013))
+
+# check noof and stoptime
+## unique
+
+rs_data_unik <- rs_data %>% group_by(id) %>% slice(1) %>% ungroup()
+
+rs_data_test <- create_sosvar(
+  sosdata = sos_data_test,
+  cohortdata = rs_data_unik,
+  patid = id,
+  indexdate = indexdtm,
+  sosdate = sosdtm,
+  noof = TRUE,
+  stoptime = 2 * 365,
+  type = "out",
+  name = "r34",
+  diakod = " R34",
+  diavar = HDIA,
+  censdate = deathdtm,
+  warning = FALSE
+)
+
+expect_that(rs_data_test %>% count(sos_out_r34), equals(tibble(sos_out_r34 = c(0, 1, 2, 3), n = as.integer(c(281, 35, 2, 1)))))
+
+## not unique
+
+rs_data_test <- create_sosvar(
+  sosdata = sos_data_test,
+  cohortdata = rs_data,
+  patid = id,
+  indexdate = indexdtm,
+  sosdate = sosdtm,
+  noof = TRUE,
+  stoptime = 2 * 365,
+  type = "out",
+  name = "r34",
+  diakod = " R34",
+  diavar = HDIA,
+  censdate = deathdtm,
+  warning = FALSE
+)
+
+expect_that(rs_data_test %>% count(sos_out_r34), equals(data.frame(sos_out_r34 = c(0, 1, 2, 3), n = as.integer(c(443, 51, 5, 1)))))

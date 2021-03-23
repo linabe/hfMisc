@@ -328,7 +328,7 @@ create_sosvar <- function(type,
     }
     if (type == "out") {
       tmp_data <- left_join(cohortdata,
-        tmp_data,
+        tmp_data %>% dplyr::select(!!!syms(groupbyvars), !!name2, !!sosdate),
         by = groupbyvars
       )
 

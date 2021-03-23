@@ -62,3 +62,7 @@ a character or factor variable.
 # hfmisc 0.0.13
 
 * added option to calculate duration of comorbidity (comduration) in function create_sosvar
+
+# hfmisc 0.0.14
+
+* fixed bug when calculating noof events with stoptime and unique id variable. 
