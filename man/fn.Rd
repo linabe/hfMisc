@@ -4,14 +4,16 @@
 \alias{fn}
 \title{Format numbers (including p-values)}
 \usage{
-fn(x, dig = 0, p = FALSE, ...)
+fn(x, dig = 0, p = FALSE, pequalsign = FALSE, ...)
 }
 \arguments{
 \item{x}{Number that should be formatted.}
 
 \item{dig}{Number of digits.}
 
-\item{p}{is x a p-value? If 0.000 will then format to <0.001.}
+\item{p}{is x a p-value? If <0.x1 will then format to <0.x1.}
+
+\item{pequalsign}{if x is a p-value should = be placed in front if not <0.x1}
 
 \item{...}{Additional arguments to formatC.}
 }
