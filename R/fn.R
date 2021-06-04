@@ -21,7 +21,11 @@ fn <- function(x, dig = 0, p = FALSE, pequalsign = FALSE, ...) {
   if (p) {
     out <- replace(
       out,
+<<<<<<< HEAD
       out == paste0("0.", paste0(rep(0, dig), collapse = "")), paste0("<0.", paste0(rep(0, max(dig - 1), 0), collapse = ""), "1")
+=======
+      out == paste0("0.", paste0(rep(0, dig), collapse = "")), paste0("<0.", paste0(rep(0, min(dig - 1), 0), collapse = ""), "1")
+>>>>>>> df1c11aa4502c10201460ae1f8ea85bf76b7a0ed
     )
     if (pequalsign) {
       out <- dplyr::if_else(stringr::str_detect(out, "<", negate = TRUE), paste0("=", out), out)
