@@ -65,4 +65,9 @@ a character or factor variable.
 
 # hfmisc 0.0.14
 
-* fixed bug when calculating noof events with stoptime and unique id variable. 
+* fixed bug when calculating noof events with stoptime and unique id variable 
+* fixed bug when calculating noof events and valsclass != "num"
+
+# hfmisc 0.0.15
+
+* added option pequalsign to fn function and made possible to have digits != 3 if p = TRUE

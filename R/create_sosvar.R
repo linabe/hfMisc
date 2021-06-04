@@ -313,7 +313,8 @@ create_sosvar <- function(type,
             # date of death are still counted as an event)
             !!sym(name2)
           ),
-          !!timename2 := as.numeric(pmin(!!sosdate, tmp_censdate, na.rm = TRUE) - !!indexdate) + 1 - starttime) %>%
+          !!timename2 := as.numeric(pmin(!!sosdate, tmp_censdate, na.rm = TRUE) - !!indexdate) + 1 - starttime
+        ) %>%
         select(-!!sosdate, -tmp_censdate)
     }
   }
@@ -354,16 +355,21 @@ create_sosvar <- function(type,
     ) %>%
       mutate(!!name2 := tidyr::replace_na(!!sym(name2), 0))
   }
-  if (valsclass %in% c("char", "fac")) {
+  if (valsclass == "char" & !noof) {
     out_data <- out_data %>%
       mutate(!!name2 := case_when(
         !!sym(name2) == 1 ~ "Yes",
-        TRUE ~ "No"
+        !!sym(name2) == 0 ~ "No"
       ))
-    if (valsclass == "fac") {
-      out_data <- out_data %>%
-        mutate(!!name2 := factor(!!sym(name2)))
-    }
+  }
+  if (valsclass == "fac" & !noof) {
+    out_data <- out_data %>%
+      mutate(!!name2 := factor(case_when(
+        !!sym(name2) == 1 ~ "Yes",
+        !!sym(name2) == 0 ~ "No"
+      ),
+      levels = 0:1,
+      labels = c("No", "Yes")))
   }
 
   # create meta data to print in table in statistical report
