@@ -13,7 +13,7 @@ sanitize_text(str)
 The sanitized character vector.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Sanitize text for compatability with latex. Used for example when
 escape = FALSE needed in kableExtra table (with output latex),

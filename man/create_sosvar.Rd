@@ -114,7 +114,7 @@ with blank space " ". Default is ekod_all.}
 
 \item{valsclass}{optional argument specifying the class of the
 comorbidities/outcomes. Allowed values are "num" (numeric: 1, 0),
-"char" (character: "yes", "no"), "fac" (factor: "yes", "no").
+"char" (character: "Yes", "No"), "fac" (factor: "Yes", "No").
 Default is "num".}
 
 \item{meta_reg}{Optional argument specifying registries used. Printed in
@@ -132,7 +132,7 @@ Also dataset metaout that writes directly to global enviroment
 with information on constructed variables.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Calculates comorbidities and outcomes (including time to for the latter)
 from DIA, OP and ekod variables from National Patient Registry.

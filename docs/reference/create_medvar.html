@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read sas data — read_sasdata • hfmisc</title>
+<title>Calculates medicines from Dispensed Drug Registry — create_medvar • hfmisc</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="Read sas data — read_sasdata" />
+<meta property="og:title" content="Calculates medicines from Dispensed Drug Registry — create_medvar" />
 <meta property="og:description" content="
-Read sas data, clean and remove labels and formats" />
+Calculates medicines from ATC from Dispensed Drug Registry." />
 
 
 
@@ -115,75 +115,100 @@ Read sas data, clean and remove labels and formats" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read sas data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/linabe/hfmisc/blob/master/R/read_sasdata.R'><code>R/read_sasdata.R</code></a></small>
-    <div class="hidden name"><code>read_sasdata.Rd</code></div>
+    <h1>Calculates medicines from Dispensed Drug Registry</h1>
+    <small class="dont-index">Source: <a href='https://github.com/linabe/hfmisc/blob/master/R/create_medvar.R'><code>R/create_medvar.R</code></a></small>
+    <div class="hidden name"><code>create_medvar.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#stable'><img src='figures/lifecycle-stable.svg' alt='[Stable]' /></a></p>
-<p>Read sas data, clean and remove labels and formats</p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
+<p>Calculates medicines from ATC from Dispensed Drug Registry.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_sasdata</span><span class='op'>(</span>
-  <span class='va'>path</span>,
-  <span class='va'>filename</span>,
-  <span class='va'>years</span>,
-  checkdups <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  <span class='va'>id</span>,
-  clean <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  removeformats <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  removelabels <span class='op'>=</span> <span class='cn'>TRUE</span>
+    <pre class="usage"><span class='fu'>create_medvar</span><span class='op'>(</span>
+  <span class='va'>atc</span>,
+  medvar <span class='op'>=</span> <span class='va'>ATC</span>,
+  <span class='va'>medname</span>,
+  <span class='va'>cohortdata</span>,
+  <span class='va'>meddata</span>,
+  id <span class='op'>=</span> <span class='st'>"lopnr"</span>,
+  valsclass <span class='op'>=</span> <span class='st'>"num"</span>,
+  <span class='va'>fromdate</span>,
+  <span class='va'>indexdate</span>,
+  metatime <span class='op'>=</span> <span class='st'>"-5mo-14days"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>The path to the dataset.</p></td>
+      <th>atc</th>
+      <td><p>String of ATC as a regular expression defining the medicine. Default is ATC.</p></td>
     </tr>
     <tr>
-      <th>filename</th>
-      <td><p>The filename (without extension).</p></td>
+      <th>medvar</th>
+      <td><p>Name of variable where ATC are found.</p></td>
     </tr>
     <tr>
-      <th>years</th>
-      <td><p>Optional. If dataset from different yeas (for example from LISA)
-bind together.</p></td>
+      <th>medname</th>
+      <td><p>Name of resulting variable
+(with prefix sos_ddr_).</p></td>
     </tr>
     <tr>
-      <th>checkdups</th>
-      <td><p>Should check for duplicates? Default is FALSE.</p></td>
+      <th>cohortdata</th>
+      <td><p>Data to add medvar to.</p></td>
+    </tr>
+    <tr>
+      <th>meddata</th>
+      <td><p>Data where ATC codes are found.</p></td>
     </tr>
     <tr>
       <th>id</th>
-      <td><p>If duplicates should be checked, identifier that should be unique.
-Should be character ("LopNr")</p></td>
+      <td><p>Vector of post identifier (meds for each post). Default is lopnr.</p></td>
     </tr>
     <tr>
-      <th>clean</th>
-      <td><p>Should the dataset be cleaned from spaces and special characters
-in character columns? Default is TRUE.</p></td>
+      <th>valsclass</th>
+      <td><p>optional argument specifying the class of the
+meds. Allowed values are "num" (numeric: 1, 0),
+"char" (character: "Yes", "No"), "fac" (factor: "Yes", "No").
+Default is "num".</p></td>
     </tr>
     <tr>
-      <th>removeformats</th>
-      <td><p>Should sas formats be removed? Default is TRUE.</p></td>
+      <th>fromdate</th>
+      <td><p>Optional date where post with a indexdate prior to this are set to NA (e.g. prior to start of DDR + x months).</p></td>
     </tr>
     <tr>
-      <th>removelabels</th>
-      <td><p>Should sas labels be removed? Default is TRUE.</p></td>
+      <th>indexdate</th>
+      <td><p>If fromdate is given, variable were indexdate is found.</p></td>
+    </tr>
+    <tr>
+      <th>metatime</th>
+      <td><p>For what time span are the meds selected in data? Printed in metalm. Default text is "-5mo-14days".</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A dataset.</p>
+    <p>cohortdata with column containing medicine.
+Also dataset metalm that writes directly to global enviroment
+with information on constructed variables.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>antalbarn</span> <span class='op'>&lt;-</span> <span class='fu'>read_sasdata</span><span class='op'>(</span>path <span class='op'>=</span> <span class='va'>scbpath</span>, filename <span class='op'>=</span> <span class='st'>"lb_lev_antal_barn"</span>, years <span class='op'>=</span> <span class='fl'>1999</span><span class='op'>:</span><span class='fl'>2018</span>, clean <span class='op'>=</span> <span class='cn'>FALSE</span>, checkdups <span class='op'>=</span> <span class='cn'>TRUE</span>, id <span class='op'>=</span> <span class='st'>"LopNr"</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>lmtmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span>
+  <span class='va'>rsdata</span> <span class='op'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>LopNr</span>, <span class='va'>shf_indexdtm</span><span class='op'>)</span>,
+  <span class='va'>lmsel</span>,
+  by <span class='op'>=</span> <span class='st'>"LopNr"</span>
+<span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>diff <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>EDATUM</span> <span class='op'>-</span> <span class='va'>shf_indexdtm</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>diff</span> <span class='op'>&gt;=</span> <span class='op'>-</span><span class='fl'>30.5</span> <span class='op'>*</span> <span class='fl'>5</span>, <span class='va'>diff</span> <span class='op'>&lt;=</span> <span class='fl'>14</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>LopNr</span>, <span class='va'>shf_indexdtm</span>, <span class='va'>EDATUM</span>, <span class='va'>ATC</span><span class='op'>)</span>
+
+<span class='va'>rsdata</span> <span class='op'>&lt;-</span> <span class='fu'>create_medvar</span><span class='op'>(</span>atc <span class='op'>=</span> <span class='st'>"^C07A"</span>, medname <span class='op'>=</span> <span class='st'>"bbl"</span>, cohortdata <span class='op'>=</span> <span class='va'>rsdata</span>, meddata <span class='op'>=</span> <span class='va'>lmtmp</span>, id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"LopNr"</span>, <span class='st'>"shf_indexdtm"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

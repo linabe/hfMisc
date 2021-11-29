@@ -212,15 +212,15 @@ rs_data_test <- create_sosvar(
   warning = FALSE
 )
 
-expect_that(sum(rs_data_test$sos_com_cv1y == 1), equals(222))
+expect_that(sum(rs_data_test$sos_com_cv1y == 1), equals(246))
 
-expect_that(sum(rs_data_test$sos_out_cv == 1), equals(179))
+expect_that(sum(rs_data_test$sos_out_cv == 1), equals(192))
 
-expect_that(sum(rs_data_test$sos_out_cv_HDIA == 1), equals(201))
+expect_that(sum(rs_data_test$sos_out_cv_HDIA == 1), equals(208))
 
-expect_that(sum(rs_data_test$sos_outtime_cv), equals(124467))
+expect_that(sum(rs_data_test$sos_outtime_cv), equals(122121))
 
-expect_that(sum(rs_data_test$sos_out_noncv == 1), equals(49))
+expect_that(sum(rs_data_test$sos_out_noncv == 1), equals(53))
 
 # number of
 
@@ -239,7 +239,7 @@ rs_data_test <- create_sosvar(
   warning = FALSE
 )
 
-expect_that(rs_data_test %>% count(sos_out_repI), equals(data.frame(sos_out_repI = c(0, 1, 2, 3, 4, 5, 7), n = as.integer(c(287, 97, 76, 27, 8, 4, 1)))))
+expect_that(rs_data_test %>% count(sos_out_repI), equals(data.frame(sos_out_repI = c(0, 1, 2, 3, 4, 5, 6), n = as.integer(c(275, 117, 49, 36, 14, 8, 1)))))
 
 # start and stopdate
 
@@ -260,9 +260,9 @@ rs_data_test <- create_sosvar(
   stoptime = 2 * 365
 )
 
-expect_that(sum(rs_data_test$sos_out_cv_HDIA_ss == 1), equals(197))
+expect_that(sum(rs_data_test$sos_out_cv_HDIA_ss == 1), equals(205))
 
-expect_that(sum(rs_data_test$sos_outtime_cv_HDIA_ss), equals(185369))
+expect_that(sum(rs_data_test$sos_outtime_cv_HDIA_ss), equals(184433))
 
 rs_data_test <- create_sosvar(
   sosdata = sos_data_test,
@@ -281,7 +281,7 @@ rs_data_test <- create_sosvar(
   stoptime = 2 * 365
 )
 
-expect_that(sum(rs_data_test$sos_out_repI_ss), equals(368))
+expect_that(sum(rs_data_test$sos_out_repI_ss), equals(402))
 
 # test comduration
 
@@ -300,7 +300,7 @@ rs_data_test <- create_sosvar(
   starttime = 0
 )
 
-expect_that(sum(rs_data_test$sos_comdur_r, na.rm = TRUE), equals(1321844))
+expect_that(sum(rs_data_test$sos_comdur_r, na.rm = TRUE), equals(1414180))
 
 rs_data_test <- create_sosvar(
   sosdata = sos_data_test,
@@ -317,7 +317,7 @@ rs_data_test <- create_sosvar(
   starttime = -100
 )
 
-expect_that(sum(rs_data_test$sos_comdur_r, na.rm = TRUE), equals(1285178))
+expect_that(sum(rs_data_test$sos_comdur_r, na.rm = TRUE), equals(1376680))
 
 rs_data_test <- create_sosvar(
   sosdata = sos_data_test,
@@ -334,7 +334,7 @@ rs_data_test <- create_sosvar(
   stoptime = -500
 )
 
-expect_that(sum(rs_data_test$sos_comdur_r, na.rm = TRUE), equals(31013))
+expect_that(sum(rs_data_test$sos_comdur_r, na.rm = TRUE), equals(38645))
 
 # check noof and stoptime
 ## unique
@@ -357,7 +357,7 @@ rs_data_test <- create_sosvar(
   warning = FALSE
 )
 
-expect_that(rs_data_test %>% count(sos_out_r34), equals(tibble(sos_out_r34 = c(0, 1, 2, 3), n = as.integer(c(281, 35, 2, 1)))))
+expect_that(rs_data_test %>% count(sos_out_r34), equals(tibble(sos_out_r34 = c(0, 1, 2), n = as.integer(c(281, 32, 6)))))
 
 ## not unique
 
@@ -377,4 +377,4 @@ rs_data_test <- create_sosvar(
   warning = FALSE
 )
 
-expect_that(rs_data_test %>% count(sos_out_r34), equals(data.frame(sos_out_r34 = c(0, 1, 2, 3), n = as.integer(c(443, 51, 5, 1)))))
+expect_that(rs_data_test %>% count(sos_out_r34), equals(data.frame(sos_out_r34 = c(0, 1, 2), n = as.integer(c(446, 47, 7)))))

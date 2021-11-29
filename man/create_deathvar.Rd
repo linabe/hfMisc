@@ -44,7 +44,7 @@ with blank space " ". Default is ULORSAK.}
 
 \item{valsclass}{optional argument specifying the class of the
 comorbidities/outcomes. Allowed values are "num" (numeric: 1, 0),
-"char" (character: "yes", "no"), "fac" (factor: "yes", "no").
+"char" (character: "Yes", "No"), "fac" (factor: "Yes", "No").
 Default is "num".}
 
 \item{meta_reg}{Optional argument specifying registries used. Printed in
@@ -62,7 +62,7 @@ Also dataset metaout that writes directly to global enviroment
 with information on constructed variables.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 Calculates cause-specific death (and optionally time to death)
 from codes in the Cause of Death Registry.

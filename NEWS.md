@@ -71,3 +71,20 @@ a character or factor variable.
 # hfmisc 0.0.15
 
 * added option pequalsign to fn function and made possible to have digits != 3 if p = TRUE
+
+# hfmisc 0.0.16
+
+* added functions create_crevent, create_crvar, cut_surv
+
+# hfmisc 0.0.17
+
+* bug fix in create_sosvar valsclass = "fac"
+
+# hfmisc 0.0.18
+
+* added argument forcenum + warning to create_crvar
+* added function create_medvar
+
+# hfmisc 0.0.19
+
+* added text conversions to create_crvar

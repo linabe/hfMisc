@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data from National Patient Registry — sos_data • hfmisc</title>
+<title>Create event for competing risk analysis (cmprsk::crr) — create_crevent • hfmisc</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Data from National Patient Registry — sos_data" />
-<meta property="og:description" content="sos_data aims to mimic data recived from Socialstyrelsen,
-used in the examples given in functions prep_sosdata and create_sosvar." />
+<meta property="og:title" content="Create event for competing risk analysis (cmprsk::crr) — create_crevent" />
+<meta property="og:description" content="" />
 
 
 
@@ -115,36 +114,49 @@ used in the examples given in functions prep_sosdata and create_sosvar." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Data from National Patient Registry</h1>
-    <small class="dont-index">Source: <a href='https://github.com/linabe/hfmisc/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>sos_data.Rd</code></div>
+    <h1>Create event for competing risk analysis (cmprsk::crr)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/linabe/hfmisc/blob/master/R/create_crevent.R'><code>R/create_crevent.R</code></a></small>
+    <div class="hidden name"><code>create_crevent.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>sos_data aims to mimic data recived from Socialstyrelsen,
-used in the examples given in functions prep_sosdata and create_sosvar.</p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
     </div>
 
-    <pre class="usage"><span class='va'>sos_data</span></pre>
+    <pre class="usage"><span class='fu'>create_crevent</span><span class='op'>(</span><span class='va'>event</span>, <span class='va'>compevent</span>, eventvalues <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Yes"</span>, <span class='st'>"Yes"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>event</th>
+      <td><p>Event of interest.</p></td>
+    </tr>
+    <tr>
+      <th>compevent</th>
+      <td><p>Competing event (assumed to occur after event of interest).</p></td>
+    </tr>
+    <tr>
+      <th>eventvalues</th>
+      <td><p>Vector with values indicating event in event and compevent (in that order).</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with 5500 rows and 8 variables:</p><dl>
-<dt>id</dt><dd><p>Patient id. Not unique. Integer.</p></dd>
-<dt>INDATUM</dt><dd><p>Date of visit. Date.</p></dd>
-<dt>UTDATUM</dt><dd><p>Date of discharge. Date.</p></dd>
-<dt>HDIA</dt><dd><p>Main diagnosis. Character.</p></dd>
-<dt>DIA01</dt><dd><p>Character.</p></dd>
-<dt>OP01</dt><dd><p>Procedure code, position 1. Character.</p></dd>
-<dt>OP02</dt><dd><p>Procedure code, position 2. Character.</p></dd>
-<dt>ekod1</dt><dd><p>Character.</p></dd>
-<dt>ekod2</dt><dd><p>Character.</p></dd>
-<dt>AR</dt><dd><p>Year of visit date. Numeric.</p></dd>
+    <p>Competing event variable where 1 = event, 2 = competing event, 0 = censoring.</p>
 
-</dl>
-
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressMessages</a></span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>, classes <span class='op'>=</span> <span class='st'>"warnings"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: package 'dplyr' was built under R version 4.0.5</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: 'dplyr'</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:testthat':</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:stats':</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:base':</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='va'>rs_data</span> <span class='op'>&lt;-</span> <span class='va'>rs_data</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>event_cr <span class='op'>=</span> <span class='fu'>create_crevent</span><span class='op'>(</span><span class='va'>out_hosphf</span>, <span class='va'>out_death_fac</span>, eventvalues <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='st'>"Yes"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

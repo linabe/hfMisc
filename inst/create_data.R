@@ -7,7 +7,6 @@ set.seed(734895789)
 
 # Create cohortdata -------------------------------------------------------
 
-
 rs_data <- data.frame(
   id = sample(500, 500, replace = TRUE),
   indexdtm = as.Date(sample(365 * 3, 500,
@@ -28,15 +27,26 @@ rs_data <- left_join(rs_data,
   deathdate,
   by = "id"
 ) %>%
-  mutate(deathdtm = case_when(
-    difftime(tmp_deathdtm, indexdtm, units = "days") >= 0 ~ tmp_deathdtm,
-    TRUE ~ ymd("2015-12-31")
-  )) %>%
+  mutate(
+    deathdtm = case_when(
+      difftime(tmp_deathdtm, indexdtm, units = "days") >= 0 ~ tmp_deathdtm,
+      TRUE ~ ymd("2015-12-31")
+    ),
+    outtime_death = as.numeric(deathdtm - indexdtm),
+    out_death_num = if_else(deathdtm == ymd("2015-12-31"), 0, 1),
+    out_death_char = if_else(out_death_num == 0, "No", "Yes"),
+    out_death_fac = factor(out_death_num, levels = 0:1, labels = c("No", "Yes")),
+    out_hosphf = rbinom(n = n(), size = 1, prob = 0.7),
+    xvar_4_num = rbinom(n = n(), size = 3, prob = 0.15),
+    xvar_2_fac = factor(rbinom(n = n(), size = 1, prob = 0.15), levels = 0:1, labels = c("No", "Yes"))
+  ) %>%
   dplyr::select(-tmp_deathdtm) %>%
   arrange(id, indexdtm)
 
 
 # Create sosdata ----------------------------------------------------------
+
+set.seed(734895789)
 
 sos_data <- data.frame(
   id = sample(400, 5500,
@@ -78,6 +88,8 @@ sos_data <- data.frame(
 
 # Create deathdata --------------------------------------------------------
 
+set.seed(734895789)
+
 dors_data <- rs_data %>%
   rename(DODSDAT = deathdtm) %>%
   filter(DODSDAT != ymd("2015-12-31")) %>%
@@ -92,3 +104,16 @@ dors_data <- rs_data %>%
   arrange(id)
 
 save(rs_data, sos_data, dors_data, file = "./data/data.rda")
+
+
+# Create meddata ----------------------------------------------------------
+
+set.seed(734895789)
+
+med_data <- rs_data %>%
+  select(id, indexdtm) %>%
+  mutate(ATC = sample(c("C07A", "C01BC04", "C08DB01"), n(),
+    replace = TRUE
+  ))
+
+save(rs_data, sos_data, dors_data, med_data, file = "./data/data.rda")

@@ -8,7 +8,7 @@ rs_data_test <- create_deathvar(
   orsakkod = " I| R34"
 )
 
-expect_that(sum(rs_data_test$sos_out_deathcv == 1), equals(145))
+expect_that(sum(rs_data_test$sos_out_deathcv == 1), equals(142))
 
 rs_data_test <- create_deathvar(
   cohortdata = rs_data,
@@ -17,7 +17,7 @@ rs_data_test <- create_deathvar(
   valsclass = "fac"
 )
 
-expect_that(sum(rs_data_test$sos_out_deathcvfac == "Yes"), equals(145))
+expect_that(sum(rs_data_test$sos_out_deathcvfac == "Yes"), equals(142))
 
 
 rs_data_test <- create_deathvar(
@@ -31,7 +31,7 @@ rs_data_test <- create_deathvar(
   calctimetodeath = TRUE
 )
 
-expect_that(sum(rs_data_test$sos_out_deathcv2 == 1), equals(145))
+expect_that(sum(rs_data_test$sos_out_deathcv2 == 1), equals(142))
 expect_that(mean(rs_data_test$sos_outtime_deathcv2), equals(659.54))
 
 rs_data_test <- create_deathvar(
@@ -45,7 +45,7 @@ rs_data_test <- create_deathvar(
   calctimetodeath = TRUE
 )
 
-expect_that(sum(rs_data_test$sos_out_deathcv3 == 1), equals(113))
+expect_that(sum(rs_data_test$sos_out_deathcv3 == 1), equals(109))
 expect_that(mean(rs_data_test$sos_outtime_deathcv3), equals(638.832))
 
 rs_data_test <- create_deathvar(
@@ -58,7 +58,7 @@ rs_data_test <- create_deathvar(
   deathdate = deathdtm
 )
 
-expect_that(sum(rs_data_test$sos_out_deathcv == 1), equals(113))
+expect_that(sum(rs_data_test$sos_out_deathcv == 1), equals(109))
 
 rs_data_test <- create_deathvar(
   cohortdata = rs_data,
@@ -71,7 +71,7 @@ rs_data_test <- create_deathvar(
   calctimetodeath = TRUE
 )
 
-expect_that(sum(rs_data_test$sos_out_deathcv == 1), equals(145))
+expect_that(sum(rs_data_test$sos_out_deathcv == 1), equals(142))
 
 rs_data_test <- create_deathvar(
   cohortdata = rs_data,
@@ -80,4 +80,4 @@ rs_data_test <- create_deathvar(
   orsakvar = ULORSAK
 )
 
-expect_that(sum(rs_data_test$sos_out_deathcv3 == 1), equals(145))
+expect_that(sum(rs_data_test$sos_out_deathcv3 == 1), equals(142))

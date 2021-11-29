@@ -63,7 +63,7 @@
 #'   with blank space " ". Default is ekod_all.
 #' @param valsclass optional argument specifying the class of the
 #'   comorbidities/outcomes. Allowed values are "num" (numeric: 1, 0),
-#'   "char" (character: "yes", "no"), "fac" (factor: "yes", "no").
+#'   "char" (character: "Yes", "No"), "fac" (factor: "Yes", "No").
 #'   Default is "num".
 #' @param meta_reg Optional argument specifying registries used. Printed in
 #'   metadatatable. Default is
@@ -355,21 +355,13 @@ create_sosvar <- function(type,
     ) %>%
       mutate(!!name2 := tidyr::replace_na(!!sym(name2), 0))
   }
-  if (valsclass == "char" & !noof) {
+  if (valsclass == c("char") & !noof) {
     out_data <- out_data %>%
-      mutate(!!name2 := case_when(
-        !!sym(name2) == 1 ~ "Yes",
-        !!sym(name2) == 0 ~ "No"
-      ))
+      mutate(!!name2 := if_else(!!sym(name2) == 1, "Yes", "No"))
   }
   if (valsclass == "fac" & !noof) {
     out_data <- out_data %>%
-      mutate(!!name2 := factor(case_when(
-        !!sym(name2) == 1 ~ "Yes",
-        !!sym(name2) == 0 ~ "No"
-      ),
-      levels = 0:1,
-      labels = c("No", "Yes")))
+      mutate(!!name2 := factor(!!sym(name2), levels = c(0, 1), labels = c("No", "Yes")))
   }
 
   # create meta data to print in table in statistical report

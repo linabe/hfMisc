@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data from National Patient Registry — sos_data • hfmisc</title>
+<title>Create numeric dummy xvars for competing risk analysis (cmprsk::crr) — create_crvar • hfmisc</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Data from National Patient Registry — sos_data" />
-<meta property="og:description" content="sos_data aims to mimic data recived from Socialstyrelsen,
-used in the examples given in functions prep_sosdata and create_sosvar." />
+<meta property="og:title" content="Create numeric dummy xvars for competing risk analysis (cmprsk::crr) — create_crvar" />
+<meta property="og:description" content="" />
 
 
 
@@ -115,36 +114,41 @@ used in the examples given in functions prep_sosdata and create_sosvar." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Data from National Patient Registry</h1>
-    <small class="dont-index">Source: <a href='https://github.com/linabe/hfmisc/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>sos_data.Rd</code></div>
+    <h1>Create numeric dummy xvars for competing risk analysis (cmprsk::crr)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/linabe/hfmisc/blob/master/R/create_crvar.R'><code>R/create_crvar.R</code></a></small>
+    <div class="hidden name"><code>create_crvar.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>sos_data aims to mimic data recived from Socialstyrelsen,
-used in the examples given in functions prep_sosdata and create_sosvar.</p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
     </div>
 
-    <pre class="usage"><span class='va'>sos_data</span></pre>
+    <pre class="usage"><span class='fu'>create_crvar</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>var</span>, forcenum <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>Data.</p></td>
+    </tr>
+    <tr>
+      <th>var</th>
+      <td><p>String containing variable that should be numeric and dummified.</p></td>
+    </tr>
+    <tr>
+      <th>forcenum</th>
+      <td><p>Should variables that are not character/factor be dummified? Default is FALSE.</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with 5500 rows and 8 variables:</p><dl>
-<dt>id</dt><dd><p>Patient id. Not unique. Integer.</p></dd>
-<dt>INDATUM</dt><dd><p>Date of visit. Date.</p></dd>
-<dt>UTDATUM</dt><dd><p>Date of discharge. Date.</p></dd>
-<dt>HDIA</dt><dd><p>Main diagnosis. Character.</p></dd>
-<dt>DIA01</dt><dd><p>Character.</p></dd>
-<dt>OP01</dt><dd><p>Procedure code, position 1. Character.</p></dd>
-<dt>OP02</dt><dd><p>Procedure code, position 2. Character.</p></dd>
-<dt>ekod1</dt><dd><p>Character.</p></dd>
-<dt>ekod2</dt><dd><p>Character.</p></dd>
-<dt>AR</dt><dd><p>Year of visit date. Numeric.</p></dd>
+    <p>Data with a numeric xvars x levels - 1.</p>
 
-</dl>
-
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>rs_data</span> <span class='op'>&lt;-</span> <span class='fu'>create_crvar</span><span class='op'>(</span><span class='va'>rs_data</span>, <span class='st'>"xvar_4_num"</span>, forcenum <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

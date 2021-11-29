@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data from National Patient Registry — sos_data • hfmisc</title>
+<title>Limit event and survival times to a time point — cut_surv • hfmisc</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Data from National Patient Registry — sos_data" />
-<meta property="og:description" content="sos_data aims to mimic data recived from Socialstyrelsen,
-used in the examples given in functions prep_sosdata and create_sosvar." />
+<meta property="og:title" content="Limit event and survival times to a time point — cut_surv" />
+<meta property="og:description" content="" />
 
 
 
@@ -115,36 +114,58 @@ used in the examples given in functions prep_sosdata and create_sosvar." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Data from National Patient Registry</h1>
-    <small class="dont-index">Source: <a href='https://github.com/linabe/hfmisc/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>sos_data.Rd</code></div>
+    <h1>Limit event and survival times to a time point</h1>
+    <small class="dont-index">Source: <a href='https://github.com/linabe/hfmisc/blob/master/R/cut_surv.R'><code>R/cut_surv.R</code></a></small>
+    <div class="hidden name"><code>cut_surv.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>sos_data aims to mimic data recived from Socialstyrelsen,
-used in the examples given in functions prep_sosdata and create_sosvar.</p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#experimental'><img src='figures/lifecycle-experimental.svg' alt='[Experimental]' /></a></p>
     </div>
 
-    <pre class="usage"><span class='va'>sos_data</span></pre>
+    <pre class="usage"><span class='fu'>cut_surv</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>event</span>, <span class='va'>time</span>, <span class='va'>at</span>, cuttime <span class='op'>=</span> <span class='cn'>TRUE</span>, rename <span class='op'>=</span> <span class='cn'>NULL</span>, censval <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>Data.</p></td>
+    </tr>
+    <tr>
+      <th>event</th>
+      <td><p>Event that should be cut.</p></td>
+    </tr>
+    <tr>
+      <th>time</th>
+      <td><p>Time that should be cut. See also cuttime.</p></td>
+    </tr>
+    <tr>
+      <th>at</th>
+      <td><p>At what time point should event/time be cut? In units of time.</p></td>
+    </tr>
+    <tr>
+      <th>cuttime</th>
+      <td><p>Should time be cut? (can be needed for later evaluation). Default is TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>rename</th>
+      <td><p>Suffix if event and time should be renamed. Default is not to rename.</p></td>
+    </tr>
+    <tr>
+      <th>censval</th>
+      <td><p>Value of censoring in variable event.
+If not given the function will use 0 if event is numeric or "No" if event is character or factor if these exist in event.</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with 5500 rows and 8 variables:</p><dl>
-<dt>id</dt><dd><p>Patient id. Not unique. Integer.</p></dd>
-<dt>INDATUM</dt><dd><p>Date of visit. Date.</p></dd>
-<dt>UTDATUM</dt><dd><p>Date of discharge. Date.</p></dd>
-<dt>HDIA</dt><dd><p>Main diagnosis. Character.</p></dd>
-<dt>DIA01</dt><dd><p>Character.</p></dd>
-<dt>OP01</dt><dd><p>Procedure code, position 1. Character.</p></dd>
-<dt>OP02</dt><dd><p>Procedure code, position 2. Character.</p></dd>
-<dt>ekod1</dt><dd><p>Character.</p></dd>
-<dt>ekod2</dt><dd><p>Character.</p></dd>
-<dt>AR</dt><dd><p>Year of visit date. Numeric.</p></dd>
+    <p>Data with cut event and time variable.</p>
 
-</dl>
-
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>rs_data</span> <span class='op'>&lt;-</span> <span class='fu'>cut_surv</span><span class='op'>(</span><span class='va'>rs_data</span>, <span class='va'>out_death_fac</span>, <span class='va'>outtime_death</span>, at <span class='op'>=</span> <span class='fl'>365</span>, rename <span class='op'>=</span> <span class='st'>"1yr"</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

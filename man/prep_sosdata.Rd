@@ -52,7 +52,7 @@ sosdataset with combined DIA, OP, ekod variables and space
 in front of HDIA and sosdtm.
 }
 \description{
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a>}}{\strong{Stable}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Prepares raw data received from Socialstyrelsen (national patient registry or
 cause of death registry) to be processed by function make_sosvar. Removes

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Data from National Patient Registry — sos_data • hfmisc</title>
+<title>Data from Dispensed Drug Registry — med_data • hfmisc</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Data from National Patient Registry — sos_data" />
-<meta property="og:description" content="sos_data aims to mimic data recived from Socialstyrelsen,
-used in the examples given in functions prep_sosdata and create_sosvar." />
+<meta property="og:title" content="Data from Dispensed Drug Registry — med_data" />
+<meta property="og:description" content="med_data aims to mimic data from Dispensed Drug Registry (Läkmedelsregistret)." />
 
 
 
@@ -115,32 +114,24 @@ used in the examples given in functions prep_sosdata and create_sosvar." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Data from National Patient Registry</h1>
+    <h1>Data from Dispensed Drug Registry</h1>
     <small class="dont-index">Source: <a href='https://github.com/linabe/hfmisc/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>sos_data.Rd</code></div>
+    <div class="hidden name"><code>med_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>sos_data aims to mimic data recived from Socialstyrelsen,
-used in the examples given in functions prep_sosdata and create_sosvar.</p>
+    <p>med_data aims to mimic data from Dispensed Drug Registry (Läkmedelsregistret).</p>
     </div>
 
-    <pre class="usage"><span class='va'>sos_data</span></pre>
+    <pre class="usage"><span class='va'>med_data</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame with 5500 rows and 8 variables:</p><dl>
+    <p>A data frame with 500 rows and 10 variables:</p><dl>
 <dt>id</dt><dd><p>Patient id. Not unique. Integer.</p></dd>
-<dt>INDATUM</dt><dd><p>Date of visit. Date.</p></dd>
-<dt>UTDATUM</dt><dd><p>Date of discharge. Date.</p></dd>
-<dt>HDIA</dt><dd><p>Main diagnosis. Character.</p></dd>
-<dt>DIA01</dt><dd><p>Character.</p></dd>
-<dt>OP01</dt><dd><p>Procedure code, position 1. Character.</p></dd>
-<dt>OP02</dt><dd><p>Procedure code, position 2. Character.</p></dd>
-<dt>ekod1</dt><dd><p>Character.</p></dd>
-<dt>ekod2</dt><dd><p>Character.</p></dd>
-<dt>AR</dt><dd><p>Year of visit date. Numeric.</p></dd>
+<dt>ATC</dt><dd><p>ATC code. Character.</p></dd>
+<dt>indexdtm</dt><dd><p>Index date. Combination id and date is unique. Date.</p></dd>
 
 </dl>
 
