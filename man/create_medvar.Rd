@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_medvar.R
 \name{create_medvar}
 \alias{create_medvar}
-\title{Calculates medicines from Dispensed Drug Registry}
+\title{Calculates medicines from the National Prescribed Drug Register}
 \usage{
 create_medvar(
   atc,
@@ -23,7 +23,7 @@ create_medvar(
 \item{medvar}{Name of variable where ATC are found.}
 
 \item{medname}{Name of resulting variable
-(with prefix sos_ddr_).}
+(with prefix sos_lm_).}
 
 \item{cohortdata}{Data to add medvar to.}
 
@@ -50,7 +50,7 @@ with information on constructed variables.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Calculates medicines from ATC from Dispensed Drug Registry.
+Calculates medicines from ATC from the National Prescribed Drug Register.
 }
 \examples{
 

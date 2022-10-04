@@ -1,15 +1,15 @@
-#' Calculates medicines from Dispensed Drug Registry
+#' Calculates medicines from the National Prescribed Drug Register
 #'
 #' @description
 #' `r lifecycle::badge("experimental")`
 #'
-#' Calculates medicines from ATC from Dispensed Drug Registry.
+#' Calculates medicines from ATC from the National Prescribed Drug Register.
 #'
 #'
 #' @param atc String of ATC as a regular expression defining the medicine. Default is ATC.
 #' @param medvar Name of variable where ATC are found.
 #' @param medname Name of resulting variable
-#'   (with prefix sos_ddr_).
+#'   (with prefix sos_lm_).
 #' @param cohortdata Data to add medvar to.
 #' @param meddata Data where ATC codes are found.
 #' @param id Vector of post identifier (meds for each post). Default is lopnr.
@@ -62,7 +62,7 @@ create_medvar <- function(atc,
   medvar <- enquo(medvar)
   if (!missing(indexdate)) indexdate <- enquo(indexdate)
 
-  medname <- paste0("sos_ddr_", medname)
+  medname <- paste0("sos_lm_", medname)
 
   if (any(rlang::has_name(cohortdata, medname))) {
     warning(paste0(

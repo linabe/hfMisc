@@ -1,6 +1,6 @@
 Package: hfmisc
 Title: Miscellaneous functions created mainly for use in RiksSvikt (SwedeHF)
-Version: 0.0.19
+Version: 0.0.20
 Authors@R: 
     person(
         given = "Lina", 
@@ -11,7 +11,7 @@ Description:
     Collection of functions used for data handling and statistical 
     analyses mainly in RiksSvikt.
 Depends: 
-    R (>= 3.5)
+    R (>= 4.0)
 Imports: 
     purrr, 
     dplyr, 
@@ -36,5 +36,5 @@ BugReports: https://github.com/linabe/hfmisc/issues
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1
 RdMacros: lifecycle

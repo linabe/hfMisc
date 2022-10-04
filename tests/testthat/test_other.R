@@ -14,4 +14,4 @@ expect_error(
 )
 
 rs_data_test <- create_medvar(atc = "^C07A", medname = "bbl", cohortdata = rs_data, meddata = med_data, id = c("id", "indexdtm"))
-expect_that(sum(rs_data_test$sos_ddr_bbl), equals(169))
+expect_that(sum(rs_data_test$sos_lm_bbl), equals(169))

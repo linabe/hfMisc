@@ -88,3 +88,7 @@ a character or factor variable.
 # hfmisc 0.0.19
 
 * added text conversions to create_crvar
+
+# hfmisc 0.0.20
+
+* changed default name to create lm vars in create_medvar
